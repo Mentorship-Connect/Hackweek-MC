@@ -25,7 +25,7 @@ const userSchema = mongoose.Schema({
         default: false
     },
     avatar: {
-        type: string
+        type: String
     }
 }, {
     timestamp: true,
