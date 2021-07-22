@@ -19,6 +19,11 @@ const userSchema = mongoose.Schema({
         required: true,
         default: false
     },
+    isMentor: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     avatar: {
         type: string
     }
