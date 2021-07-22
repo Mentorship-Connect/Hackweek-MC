@@ -8,11 +8,9 @@ class UserSignUp extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            firstName: '',
-            lastName: '',
-            emailAddress: '',
+            name: '',
+            email: '',
             password: '',
-            confirmPassword: '',
             errors: []
         }
     }
@@ -21,7 +19,6 @@ class UserSignUp extends Component {
     change = (event) => {
         const name = event.target.name;
         const value = event.target.value;
-        console.log('Name in change: ', name, 'value in change: ', value);
 
         //dynamically captures form field and value
         this.setState(() => {
@@ -32,54 +29,46 @@ class UserSignUp extends Component {
     }
 
     submit = () => {
+        console.log('Props in submit: ', this.props);
         const { context } = this.props;
         console.log('Context in submit: ', context);
         //destructuring to make assigning these easier in user
         const {
-            firstName,
-            lastName,
-            emailAddress,
+            name,
+            email,
             password,
-            confirmPassword
+            errors
         } = this.state;
 
         //new user payload
         //will be passed to createUser()
         //don't need to pass confirmedPassword to the API
         const user = {
-            firstName,
-            lastName,
-            emailAddress,
+            name,
+            email,
             password
         };
         console.log('user payload', user);
 
-        //if passwords match submit the form
-        if (confirmPassword === password) {
-            //create new user async returns a promise
-            context.data.createUser(user)
+        //create user
+        context.data.createUser(user)
             .then(errors => {
                 if (errors.length) {
                     this.setState({ errors });
                 } else {
-                    console.log(`${emailAddress} is succesfully signed up and authenticated!`);
+                    console.log(`${email} is succesfully signed up and authenticated!`);
                     //after signup sign them in
-                    context.actions.signIn(emailAddress, password);
-                    this.props.history.push('/');
+                    //context.actions.signIn(emailAddress, password);
+                    //this.props.history.push('/');
                 }
             })
             .catch(err => {
                 //handle rejected promises
                 console.log('Something went wrong: ', err)
                 //redirect to error page
-                this.props.history.push('/error');
+                //this.props.history.push('/error');
             });        
-        } else {
-            //if passwords don't match throw a validation error
-            this.setState({ 
-                errors: 'Passwords do not match. Please make sure password and confirm password match.' 
-            });
-        }
+
     }
 
     cancel = () => {
@@ -90,11 +79,9 @@ class UserSignUp extends Component {
     render() {
         //setting up state here to use in the form to capture input
         const {
-            firstName,
-            lastName,
-            emailAddress,
+            name,
+            email,
             password,
-            confirmPassword,
             errors
         } = this.state;
 
@@ -111,24 +98,17 @@ class UserSignUp extends Component {
                             elements={() => (
                                 <Fragment>
                                     <input
-                                        id="firstName"
-                                        name="firstName"
+                                        id="name"
+                                        name="name"
                                         type="text"
-                                        value={firstName}
+                                        value={name}
                                         onChange={this.change}
-                                        placeholder="First Name" />
+                                        placeholder="Full Name" />
                                     <input 
-                                        id="lastName"
-                                        name="lastName"
+                                        id="email"
+                                        name="email"
                                         type="text"
-                                        value={lastName}
-                                        onChange={this.change}
-                                        placeholder="Last Name" />
-                                    <input 
-                                        id="emailAddress"
-                                        name="emailAddress"
-                                        type="text"
-                                        value={emailAddress}
+                                        value={email}
                                         onChange={this.change}
                                         placeholder="Email Address" />
                                     <input 
@@ -138,13 +118,6 @@ class UserSignUp extends Component {
                                         value={password}
                                         onChange={this.change}
                                         placeholder="Password" />
-                                    <input 
-                                        id="confirmPassword"
-                                        name="confirmPassword"
-                                        type="password"
-                                        value={confirmPassword}
-                                        onChange={this.change}
-                                        placeholder="Confirm Password" />
                                 </Fragment>
                             )} />
                         <p>&nbsp;</p>
