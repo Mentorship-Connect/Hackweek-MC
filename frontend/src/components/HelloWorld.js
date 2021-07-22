@@ -4,8 +4,7 @@ import React, { Fragment } from 'react';
 
 fetch('http://localhost:5000/v1/api/users')
 .then(response => response.json())
-.then(data => console.log(data));
-
+.then(data => console.log('Existing Users: ', data));
 
 const Forbidden = () => (  
     <Fragment>

@@ -50,6 +50,8 @@ class UserSignUp extends Component {
         };
         console.log('user payload', user);
 
+        console.log('This.context submit', this.context);
+
         //create user
         context.data.createUser(user)
             .then(errors => {
