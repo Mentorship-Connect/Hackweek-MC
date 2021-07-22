@@ -21,6 +21,7 @@ class UserSignUp extends Component {
     change = (event) => {
         const name = event.target.name;
         const value = event.target.value;
+        console.log('Name in change: ', name, 'value in change: ', value);
 
         //dynamically captures form field and value
         this.setState(() => {
@@ -32,6 +33,7 @@ class UserSignUp extends Component {
 
     submit = () => {
         const { context } = this.props;
+        console.log('Context in submit: ', context);
         //destructuring to make assigning these easier in user
         const {
             firstName,
@@ -50,6 +52,7 @@ class UserSignUp extends Component {
             emailAddress,
             password
         };
+        console.log('user payload', user);
 
         //if passwords match submit the form
         if (confirmPassword === password) {
