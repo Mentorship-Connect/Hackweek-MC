@@ -1,6 +1,8 @@
 import express from 'express'
 import asyncHandler from 'express-async-handler'
 import User from '../models/userModel.js'
+import generateToken from '../utils/generateToken.js'
+
 const router = express.Router()
 
 // Get all users
@@ -28,7 +30,7 @@ router.post('/v1/api/users', asyncHandler(async (req, res) => {
             email: user.email,
             isAdmin: user.isAdmin,
             isMentor: user.isMentor,
-            token: null
+            token: generateToken(user._id)
         })
     } else {
         res.status(400)
@@ -41,15 +43,15 @@ router.post('/v1/api/users/login', asyncHandler(async (req, res) => {
     const { email, password } = req.body
 
     const user = await User.findOne({ email })
-
-    if (user && (await user.matchPassword(password))) {
+    const match = await user.matchPassword(password)
+    if (user && match) {
         res.json({
             _id: user._id,
             name: user.name,
             email: user.email,
             isAdmin: user.isAdmin,
             isMentor: user.isMentor,
-            token: null,
+            token: generateToken(user._id)
         })
     } else {
         res.status(401)
