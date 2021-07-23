@@ -25,9 +25,12 @@ const userSchema = mongoose.Schema({
         required: true,
         default: false
     },
-    avatar: {
-        type: String
-    }
+    avatar: { type: String },
+    title: { type: String },
+    program: { type: String },
+    interests: [{ type: String }],
+    bio: { type: String }, 
+    availability: { type: String }
 }, {
     timestamp: true,
 })
@@ -37,12 +40,13 @@ userSchema.methods.matchPassword = async function(enteredPassword) {
 }
 
 userSchema.pre('save', async function(next) {
-    if (!this.isModified('password')) {
-        next()
+    if (!this.isModified('password') || this.isNew) {
+        return next()
     }
 
     const salt = await bcrypt.genSalt(12)
     this.password = await bcrypt.hash(this.password, salt)
+    next()
 })
 const User = mongoose.model('User', userSchema)
 
