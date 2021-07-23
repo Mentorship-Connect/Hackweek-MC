@@ -25,9 +25,12 @@ const userSchema = mongoose.Schema({
         required: true,
         default: false
     },
-    avatar: {
-        type: String
-    }
+    avatar: { type: String },
+    title: { type: String },
+    program: { type: String },
+    interests: [{ type: String }],
+    bio: { type: String }, 
+    availability: { type: String }
 }, {
     timestamp: true,
 })
