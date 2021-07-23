@@ -1,6 +1,6 @@
 import express from 'express'
 import asyncHandler from 'express-async-handler'
-import { protect } from '../middleware/authMiddleware.js'
+import { admin, protect } from '../middleware/authMiddleware.js'
 import User from '../models/userModel.js'
 import generateToken from '../utils/generateToken.js'
 
@@ -159,7 +159,7 @@ router.put('/v1/api/users/profile', protect, asyncHandler(async (req, res) => {
 }))
 
 // Delete user
-router.delete('/v1/api/users/:id', protect, asyncHandler(async (req, res) => {
+router.delete('/v1/api/users/:id', protect, admin, asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id)
     if (user) {
         await user.remove()

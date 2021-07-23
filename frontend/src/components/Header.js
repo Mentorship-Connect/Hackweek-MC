@@ -23,7 +23,6 @@ const Header = ({ context }) => {
                     rel="stylesheet"
                     type="text/css"
                 />
-                <link href="../styles/global.css" rel="stylesheet" />
                 <title>Mentorship Connect</title>
             </div>
             <div className="header">
