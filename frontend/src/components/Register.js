@@ -1,8 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { register } from '../actions/userActions'
+import React, { useState, useRef, useEffect, useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
 const Register = props =>{
-    const [user,setUser] = useState({name: "", email : "", password : ""});
+    const authContext = useContext(AuthContext)
+    const { register } = authContext
+    const [user, setUser] = useState({name: "", email : "", password : ""});
     let timerID = useRef(null);
 
     useEffect(()=>{
@@ -15,18 +17,18 @@ const Register = props =>{
         setUser({...user,[e.target.name] : e.target.value});
     }
 
-    const resetForm = ()=>{
+    const resetForm = () => {
         setUser({name : "", email : "", password : ""});
     }
 
-    const onSubmit = async (e) => {
-        try {
-            e.preventDefault();
-            const data = await register(user)
-            console.log("data", data)
-            resetForm();
-        } catch (error) {
-            console.log(error)
+    const onSubmit = (e) => {
+        e.preventDefault()
+
+        if (user.name === '' || user.email === '' || user.password === '') {
+          alert('Please enter all fields')
+        } else {
+          register(user)
+          resetForm()
         }
     }
 

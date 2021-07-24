@@ -1,35 +1,29 @@
-import './App.css';
-import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 //importing components
 import Register from './components/Register';
 import HelloWorld from './components/HelloWorld';
 import Header from './components/Header';
-
-//importing for userauth
-import withContext from './components/Context';
-
-//connects user sign up with context api
-const RegisterWithContext = withContext(Register);
-const HelloWorldWithContext = withContext(HelloWorld);
-const HeaderWithContext = withContext(Header);
+import { AuthContextProvider } from './context/AuthContext';
+import Login from './components/Login';
 
 //<h1>Mentorship Connect</h1>
 
 function App() {
   return (
-    <BrowserRouter>
-    <div className="App">
-      <HeaderWithContext />  
-    </div>
-    <Switch>
-      <Route path="/register" component={RegisterWithContext} />
-      <Route path="/hello" component={HelloWorldWithContext} />
-    </Switch>
-
-    </BrowserRouter>
-  );
+    <AuthContextProvider>
+      <Router>
+        <div>
+          <Header />
+          <Switch>
+            <Route exact path='/' component={HelloWorld} />
+            <Route exact path='/login' component={Login} />
+            <Route exact path='/register' component={Register} />
+          </Switch>
+        </div>
+      </Router>
+    </AuthContextProvider>
+  )
 }
 
 export default App;
