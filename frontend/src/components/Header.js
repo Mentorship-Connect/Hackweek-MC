@@ -1,51 +1,60 @@
-import React, { Fragment } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { Fragment, useContext, useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { AppBar, Avatar, Button, Toolbar, Typography } from '@material-ui/core'
+import { AuthContext } from '../context/AuthContext'
+import decode from 'jwt-decode'
 
-const Header = ({ context }) => {
-    const authUser = context.authenticatedUser;
+const Header = () => {
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+    const { isAuthenticated, logout } = useContext(AuthContext)
+    console.log(isAuthenticated)
+    const location = useLocation()
+
+    useEffect(() => {
+        const token = user?.token
     
+        if (token) {
+          const decodedToken = decode(token)
+          if (decodedToken.exp * 1000 < new Date().getTime()) {
+            logout()
+          }
+        }
+        setUser(JSON.parse(localStorage.getItem('profile')))
+      }, [location])
+
     return (
-        <Fragment>
-            <div>
-                <meta charSet="utf-8" />
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-                />
-                <link rel="shortcut icon" href="/favicon.ico" />
-                <link
-                    href="https://fonts.googleapis.com/css?family=Work+Sans:400,500"
-                    rel="stylesheet"
-                    type="text/css"
-                />
-                <link
-                    href="https://fonts.googleapis.com/css?family=Cousine"
-                    rel="stylesheet"
-                    type="text/css"
-                />
-                <title>Mentorship Connect</title>
-            </div>
-            <div className="header">
-                <div className="bounds">
-                <NavLink className="header--logo" to="/">Mentorship Connect</NavLink>
-                <nav>
-                    {authUser ? (
-                        <Fragment>
-                            <span>Welcome, {`${authUser.firstName}  ${authUser.lastName}`}! </span>
-                            <NavLink className="signout" to="/signout">Sign Out</NavLink>
-                        </Fragment>
-                    ) : (
-                        <Fragment>
-                            <NavLink className="signup" to="/signup">Sign Up</NavLink>
-                            <NavLink className="signin" to="/signin">Sign In</NavLink>
-                        </Fragment>
-                    )}
-                </nav>
-                </div>
-            </div>
-            <hr />
-        </Fragment>
-    );
+       <AppBar>
+           <Toolbar>
+               {user ? (
+                   <div>
+                   <Avatar
+                     alt="testing "
+                     src="user time testing"
+                   >
+                     {user?.name.charAt(0)}
+                   </Avatar>
+                   <Typography variant='h6'>
+                     {user?.name}
+                   </Typography>
+                   <Button
+                     variant='contained'
+                     className={logout}
+                     color='secondary'
+                     onClick={logout}
+                   >
+                     Log Out
+                   </Button>
+                 </div>
+               ) : (
+                <Fragment>
+                <Button color="inherit" component={Link} to="/">Home</Button>
+                <Button color="inherit" component={Link} to="/login">Login</Button>
+                <Button color="inherit" component={Link} to="/register">Register</Button>
+           </Fragment>
+               )}
+           </Toolbar>
+       </AppBar>
+    )
 }
 
-export default Header;
+export default Header
