@@ -5,10 +5,9 @@ import { Container } from '@material-ui/core'
 import Register from './components/Register';
 import Home from './components/Home';
 import Header from './components/Header';
+import HelloWorld from './components/HelloWorld';
 import { AuthContextProvider } from './context/AuthContext';
 import Login from './components/Login';
-
-//<h1>Mentorship Connect</h1>
 
 function App() {
   return (
@@ -20,6 +19,7 @@ function App() {
             <Route exact path='/' component={Home} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
+            <Route exact path ='/helloworld' component={HelloWorld} />
           </Switch>
         </Container>
       </Router>

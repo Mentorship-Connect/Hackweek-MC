@@ -23,7 +23,7 @@ const Header = () => {
       }, [location])
 
     return (
-       <AppBar>
+       <AppBar position="relative">
            <Toolbar>
                {user ? (
                    <div>
