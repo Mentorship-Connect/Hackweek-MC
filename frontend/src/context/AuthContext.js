@@ -33,7 +33,7 @@ export const AuthContextProvider = props => {
     setAuthToken(localStorage.token)
 
     try {
-        const res = await axios.get('/api/login/user')
+        const res = await axios.get('/v1/api/users')
         console.log("res", res)
 
         dispatch({
@@ -67,13 +67,13 @@ export const AuthContextProvider = props => {
     }
 
     // Login User
-    const loginUser = async (formData) => {
+    const loginUser = async (user) => {
     const headers = {
         'Content-Type': 'application/json'
     }
 
     try {
-        const res = await axios.post('/api/login/user', formData, headers)
+        const res = await axios.post('/v1/api/users/login', user, headers)
         console.log("res::", res)
         dispatch({
         type: LOGIN_SUCCESS,
