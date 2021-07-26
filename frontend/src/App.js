@@ -9,13 +9,16 @@ import Header from './components/Header';
 import HelloWorld from './components/HelloWorld';
 import { AuthContextProvider } from './context/AuthContext';
 import Login from './components/Login';
+import HeaderTest from './components/HeaderTest';
+
+//<Header />
 
 function App() {
   const classes = useStyles();
   return (
     <AuthContextProvider>
       <Router>
-      <Header />
+      <HeaderTest />
         <Container className={classes.container}>
           <Switch>
             <Route exact path='/' component={Home} />
