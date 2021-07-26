@@ -1,114 +1,11 @@
-//testing a sample search bar/app bar that I like a lot
-//TODO: clean up the imports for all the icons into one row
-//TODO: Replace burger icon w/ mentorship logo?
-//TODO: Get rid of notifications
 //TODO: add if else for authentication if not authenticated, show register option
-
-import React, { Fragment, useContext, useState, useEffect } from 'react'
-import { AuthContext } from '../context/AuthContext'
-import { Link, useLocation } from 'react-router-dom';
-import decode from 'jwt-decode'
-
-// Material UI
-import { alpha, makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import { ExitToApp } from '@material-ui/icons';
-import HomeIcon from '@material-ui/icons/Home';
-
-const useStyles = makeStyles((theme) => ({
-  grow: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
-  },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: 'auto',
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  inputRoot: {
-    color: 'inherit',
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-  sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
-    },
-  },
-  sectionMobile: {
-    display: 'flex',
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
-  },
-}));
+import React from 'react';
+import useStyles from '../styles';
+import { Link } from 'react-router-dom';
+import { Tooltip, AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu } from '@material-ui/core';
+import { SettingsInputComponent as ConnectIcon, Search as SearchIcon, AccountCircle, MoreVert as MoreIcon, ExitToApp } from '@material-ui/icons'
 
 export default function HeaderTest() {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
-  const { isAuthenticated, logout } = useContext(AuthContext)
-  console.log(isAuthenticated)
-  const location = useLocation()
-
-  useEffect(() => {
-      const token = user?.token
-  
-      if (token) {
-        const decodedToken = decode(token)
-        if (decodedToken.exp * 1000 < new Date().getTime()) {
-          logout()
-        }
-      }
-      
-      setUser(JSON.parse(localStorage.getItem('profile')))
-    }, [location, logout, user?.token])
-
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -128,18 +25,14 @@ export default function HeaderTest() {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
-  const handleLogoutAndMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-    logout()
-  };
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
   const menuId = 'primary-search-account-menu';
-  const renderMenu = user ? (
+  //keeping here in case we want to use this elsewhere
+  const renderMenu = (
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -149,24 +42,8 @@ export default function HeaderTest() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose} component={Link} to="/profile">Profile</MenuItem>
-      <MenuItem onClick={handleLogoutAndMenuClose}>Logout</MenuItem>
     </Menu>
-  ): (
-    <Menu
-    anchorEl={anchorEl}
-    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-    id={menuId}
-    keepMounted
-    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-    open={isMenuOpen}
-    onClose={handleMenuClose}
-  >
-    <MenuItem onClick={handleMenuClose} component={Link} to="/profile">Profile</MenuItem>
-    <MenuItem onClick={handleMenuClose} component={Link} to="/login">Login</MenuItem>
-    <MenuItem onClick={handleMenuClose} component={Link} to="/register">Register</MenuItem>
-  </Menu>
-  )
+  );
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
@@ -179,29 +56,21 @@ export default function HeaderTest() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-        <MenuItem onClick={handleProfileMenuOpen}>
-            <IconButton
-            aria-label="account of current user"
-            aria-controls="primary-search-account-menu"
-            aria-haspopup="true"
-            color="inherit"
-            >
-                <AccountCircle />
-            </IconButton>
+        
+        <MenuItem onClick={handleProfileMenuOpen}>   
+              <IconButton
+              aria-label="account of current user"
+              aria-controls="primary-search-account-menu"
+              aria-haspopup="true"
+              color="inherit"
+              >
+                  <AccountCircle />
+              </IconButton>
         <p>Profile</p>
       </MenuItem>
       <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem>
         <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge color="secondary">
             <ExitToApp />
-          </Badge>
         </IconButton>
         <p>Sign Out</p>
       </MenuItem>
@@ -218,10 +87,10 @@ export default function HeaderTest() {
             color="inherit"
             aria-label="open drawer"
           >
-            <MenuIcon />
+            <Link to={"/"} style={{textDecoration: 'none', color: 'whitesmoke'}}><ConnectIcon /></Link>
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            <Link to="/" style={{ textDecoration: 'none', color: 'white'}}>Mentorship Connect </Link>
+            Mentorship Connect
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -238,21 +107,23 @@ export default function HeaderTest() {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <Link to="/">
+            <Tooltip title="Profile">
               <IconButton aria-label="show 4 new mails" color="inherit">
-                <HomeIcon />
+                <AccountCircle />
               </IconButton>
-            </Link>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
+            </Tooltip>
+            <Tooltip title="Sign Out">
+              <IconButton
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <ExitToApp />
+              </IconButton>
+            </Tooltip>
           </div>
           <div className={classes.sectionMobile}>
             <IconButton

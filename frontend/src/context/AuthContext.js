@@ -69,25 +69,48 @@ export const AuthContextProvider = props => {
 
     // Login User
     const loginUser = async (user) => {
-    const headers = {
-        'Content-Type': 'application/json'
+        const headers = {
+            'Content-Type': 'application/json'
+        }
+
+        try {
+            const res = await axios.post('/v1/api/users/login', user, headers)
+
+            dispatch({
+            type: LOGIN_SUCCESS,
+            payload: res.data
+            })
+
+            loadUser()
+        } catch (err) {
+            dispatch({
+            type: LOGIN_FAIL,
+            payload: err.response.data.msg
+            })
+        }
     }
 
-    try {
-        const res = await axios.post('/v1/api/users/login', user, headers)
-
-        dispatch({
-        type: LOGIN_SUCCESS,
-        payload: res.data
-        })
-
-        loadUser()
-    } catch (err) {
-        dispatch({
-        type: LOGIN_FAIL,
-        payload: err.response.data.msg
-        })
-    }
+    // Delete User
+    const deleteUser = (id, user) => {
+        const headers = {
+            Authorization: `Bearer ${user.token}`,
+        }
+    
+        try {
+            const res = await axios.delete(`/v1/api/users/${id}`, user, headers)
+    
+            dispatch({
+            type: LOGIN_SUCCESS,
+            payload: res.data
+            })
+    
+            loadUser()
+        } catch (err) {
+            dispatch({
+            type: LOGIN_FAIL,
+            payload: err.response.data.msg
+            })
+        }
     }
 
     // Logout
@@ -108,7 +131,8 @@ export const AuthContextProvider = props => {
         register,
         loginUser,
         logout,
-        clearErrors
+        clearErrors,
+        deleteUser
     }}>
         {props.children}
     </AuthContext.Provider>

@@ -18,10 +18,10 @@ import useStyles from '../styles'
 
 const Home = (props) => {
     const classes = useStyles();
-
     const { loadUser } = useContext(AuthContext)
   
     const [users, setUsers] = useState()
+    console.log('users', users);
 
     useEffect(() => {
         axios.get('/v1/api/users')
