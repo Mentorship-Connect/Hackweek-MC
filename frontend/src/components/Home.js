@@ -15,7 +15,7 @@ const Home = (props) => {
         }).catch(err => console.log(err))
     },[loadUser])
 
-    let usersList = users ? users.map(user => <h3>{user.name}</h3>) : <p>Loading....</p>
+    let usersList = users ? users.map(user => <h3 key={user._id}>{user.name}</h3>) : <p>Loading....</p>
     return (
         <Grid container spacing={3}>
             <Grid item sm={8} xs={12}>
