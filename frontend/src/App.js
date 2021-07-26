@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Container } from '@material-ui/core'
+import useStyles from './styles';
 
 //importing components
 import Register from './components/Register';
@@ -10,11 +11,12 @@ import { AuthContextProvider } from './context/AuthContext';
 import Login from './components/Login';
 
 function App() {
+  const classes = useStyles();
   return (
     <AuthContextProvider>
       <Router>
-        <Container>
-          <Header />
+      <Header />
+        <Container className={classes.container}>
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/login' component={Login} />
