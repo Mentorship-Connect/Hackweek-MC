@@ -1,7 +1,19 @@
 import React, { useEffect, useState, useContext, Fragment } from 'react'
 import axios from 'axios'
 import { AuthContext } from '../context/AuthContext'
+
+// Material UI
 import { Grid, Button, CssBaseline, Typography } from '@material-ui/core'
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+
+
 import useStyles from '../styles'
 
 const Home = (props) => {
@@ -18,19 +30,39 @@ const Home = (props) => {
         }).catch(err => console.log(err))
     },[loadUser])
 
-    let usersList = users ? users.map(user => <h3 key={user._id}>{user.name}</h3>) : <p>Loading....</p>
+    console.log('users', users)
+
     return (
         <Fragment>
             <CssBaseline />
-            <Typography varient="h1" align="center" color="textPrimary" gutterBottom>Mentors & Mentees</Typography>
-            <Grid container spacing={3} className={classes.grid}>
-                <Grid item sm={8} xs={12}>
-                    {usersList}
-                </Grid>
-                <Grid item sm={4} xs={12}>
-                    <Button varient="contained" color="primary">Edit</Button>
-                </Grid>
-            </Grid>
+            <Typography variant="h1" align="center" color="textPrimary" gutterBottom>Mentors & Mentees</Typography>
+
+            <Table size="small">
+            <TableHead>
+            <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>Email</TableCell>
+                <TableCell>Interests</TableCell>
+                <TableCell>Program</TableCell>
+                <TableCell>Title</TableCell>
+                <TableCell>Edit</TableCell>
+                <TableCell>Delete</TableCell>
+            </TableRow>
+            </TableHead>
+            <TableBody>
+            {users?.map((user) => (
+                <TableRow key={user._id}>
+                <TableCell>{user.name}</TableCell>
+                <TableCell>{user.email}</TableCell>
+                <TableCell>{user.interests}</TableCell>
+                <TableCell>{user.program}</TableCell>
+                <TableCell>{user.title}</TableCell>
+                <TableCell><IconButton><EditIcon/></IconButton></TableCell>
+                <TableCell><IconButton><DeleteForeverIcon /></IconButton></TableCell>
+                </TableRow>
+            ))}
+            </TableBody>
+            </Table>
         </Fragment>
     )
 }
