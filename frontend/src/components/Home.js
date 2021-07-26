@@ -30,12 +30,6 @@ const Home = (props) => {
         }).catch(err => console.log(err))
     },[loadUser])
 
-    // let usersList = users ? users.map(user => <h3 key={user._id}>{user.name}</h3>) : <p>Loading....</p>
-    // console.log('usersList ', usersList)
-    // const openProfileModal = (props) => {
-
-    // }
-
     console.log('users', users)
 
     return (
