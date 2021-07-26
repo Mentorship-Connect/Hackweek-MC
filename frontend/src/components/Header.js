@@ -20,37 +20,29 @@ const Header = () => {
           }
         }
         setUser(JSON.parse(localStorage.getItem('profile')))
-      }, [location])
+      }, [location, logout, user?.token])
 
     return (
        <AppBar position="relative">
            <Toolbar>
                {user ? (
                    <div>
-                   <Avatar
-                     alt="testing "
-                     src="user time testing"
-                   >
-                     {user?.name.charAt(0)}
-                   </Avatar>
-                   <Typography variant='h6'>
-                     {user?.name}
-                   </Typography>
-                   <Button
-                     variant='contained'
-                     className={logout}
-                     color='secondary'
-                     onClick={logout}
-                   >
-                     Log Out
-                   </Button>
-                 </div>
+                        <Avatar alt="testing">
+                            {user?.name.charAt(0)}
+                        </Avatar>
+                        <Typography variant='h6'>
+                            {user?.name}
+                        </Typography>
+                        <Button variant='contained' color='secondary' onClick={logout}>
+                            Log Out
+                        </Button>
+                    </div>
                ) : (
                 <Fragment>
-                <Button color="inherit" component={Link} to="/">Home</Button>
-                <Button color="inherit" component={Link} to="/login">Login</Button>
-                <Button color="inherit" component={Link} to="/register">Register</Button>
-           </Fragment>
+                    <Button color="inherit" component={Link} to="/">Home</Button>
+                    <Button color="inherit" component={Link} to="/login">Login</Button>
+                    <Button color="inherit" component={Link} to="/register">Register</Button>
+                </Fragment>
                )}
            </Toolbar>
        </AppBar>

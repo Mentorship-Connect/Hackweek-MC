@@ -18,8 +18,7 @@ const Home = (props) => {
         }).catch(err => console.log(err))
     },[loadUser])
 
-    //TODO: make the grid for the list with buttons next to each name/item in the list also use typography
-    let usersList = users ? users.map(user => <h3>{user.name}</h3>) : <p>Loading....</p>
+    let usersList = users ? users.map(user => <h3 key={user._id}>{user.name}</h3>) : <p>Loading....</p>
     return (
         <Fragment>
             <CssBaseline />
