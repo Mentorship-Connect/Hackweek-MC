@@ -23,7 +23,7 @@ const Header = () => {
       }, [location, logout, user?.token])
 
     return (
-       <AppBar>
+       <AppBar position="relative">
            <Toolbar>
                {user ? (
                    <div>
