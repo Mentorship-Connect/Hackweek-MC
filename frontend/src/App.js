@@ -10,8 +10,6 @@ import { AuthContextProvider } from './context/AuthContext';
 import Login from './components/Login';
 import Header from './components/Header';
 
-//<Header />
-
 function App() {
   const classes = useStyles();
   return (
