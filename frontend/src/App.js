@@ -5,11 +5,10 @@ import useStyles from './styles';
 //importing components
 import Register from './components/Register';
 import Home from './components/Home';
-import Header from './components/Header';
 import HelloWorld from './components/HelloWorld';
 import { AuthContextProvider } from './context/AuthContext';
 import Login from './components/Login';
-import HeaderTest from './components/HeaderTest';
+import Header from './components/Header';
 
 //<Header />
 
@@ -18,7 +17,7 @@ function App() {
   return (
     <AuthContextProvider>
       <Router>
-      <HeaderTest />
+      <Header />
         <Container className={classes.container}>
           <Switch>
             <Route exact path='/' component={Home} />
