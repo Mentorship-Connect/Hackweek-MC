@@ -34,7 +34,6 @@ export const AuthContextProvider = props => {
 
     try {
         const res = await axios.get('/v1/api/users')
-        console.log("res", res)
 
         dispatch({
         type: USER_LOADED,
@@ -58,6 +57,8 @@ export const AuthContextProvider = props => {
         type: REGISTER_SUCCESS,
         payload: res.data
         })
+
+        loadUser()
     } catch (err) {
         dispatch({
         type: REGISTER_FAIL,
@@ -74,7 +75,7 @@ export const AuthContextProvider = props => {
 
     try {
         const res = await axios.post('/v1/api/users/login', user, headers)
-        console.log("res::", res)
+
         dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data

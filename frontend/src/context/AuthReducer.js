@@ -22,7 +22,7 @@ export default (state, action) => {
 
         case REGISTER_SUCCESS:
         localStorage.setItem('token', action.payload.token)
-        localStorage.setItem('profile', action.payload)
+        localStorage.setItem('profile', JSON.stringify(action.payload))
         return {
             ...state,
             ...action.payload,
