@@ -5,7 +5,7 @@ import useStyles from './styles';
 //importing components
 import Register from './components/Register';
 import Home from './components/Home';
-import Header from './components/Header';
+// import Header from './components/Header';
 import HelloWorld from './components/HelloWorld';
 import { AuthContextProvider } from './context/AuthContext';
 import Login from './components/Login';

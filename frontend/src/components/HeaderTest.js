@@ -4,9 +4,13 @@
 //TODO: Get rid of notifications
 //TODO: add if else for authentication if not authenticated, show register option
 
-import React from 'react';
+import React, { Fragment, useContext, useState, useEffect } from 'react'
+import { AuthContext } from '../context/AuthContext'
+import { Link, useLocation } from 'react-router-dom';
+import decode from 'jwt-decode'
+
+// Material UI
 import { alpha, makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -22,6 +26,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { ExitToApp } from '@material-ui/icons';
+import HomeIcon from '@material-ui/icons/Home';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -88,6 +93,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function HeaderTest() {
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+  const { isAuthenticated, logout } = useContext(AuthContext)
+  console.log(isAuthenticated)
+  const location = useLocation()
+
+  useEffect(() => {
+      const token = user?.token
+  
+      if (token) {
+        const decodedToken = decode(token)
+        if (decodedToken.exp * 1000 < new Date().getTime()) {
+          logout()
+        }
+      }
+      
+      setUser(JSON.parse(localStorage.getItem('profile')))
+    }, [location, logout, user?.token])
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -107,13 +130,18 @@ export default function HeaderTest() {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
+  const handleLogoutAndMenuClose = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+    logout()
+  };
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
   const menuId = 'primary-search-account-menu';
-  const renderMenu = (
+  const renderMenu = user ? (
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -123,10 +151,24 @@ export default function HeaderTest() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose} component={Link} to="/profile">Profile</MenuItem>
+      <MenuItem onClick={handleLogoutAndMenuClose}>Logout</MenuItem>
     </Menu>
-  );
+  ): (
+    <Menu
+    anchorEl={anchorEl}
+    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+    id={menuId}
+    keepMounted
+    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+    open={isMenuOpen}
+    onClose={handleMenuClose}
+  >
+    <MenuItem onClick={handleMenuClose} component={Link} to="/profile">Profile</MenuItem>
+    <MenuItem onClick={handleMenuClose} component={Link} to="/login">Login</MenuItem>
+    <MenuItem onClick={handleMenuClose} component={Link} to="/register">Register</MenuItem>
+  </Menu>
+  )
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
@@ -199,16 +241,11 @@ export default function HeaderTest() {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+            <Link to="/">
+              <IconButton aria-label="show 4 new mails" color="inherit">
+                <HomeIcon />
+              </IconButton>
+            </Link>
             <IconButton
               edge="end"
               aria-label="account of current user"
