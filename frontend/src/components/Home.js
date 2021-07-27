@@ -33,15 +33,14 @@ const Home = (props) => {
 
     console.log('users', users)
 
-    const handleDelete = async (id) => {
+    const handleDelete = async (e, id) => {
+        e.stopPropagation()
+
         try {
-         const res = await deleteUser(id)
-         console.log(res)
-         return res
+            await deleteUser(id)
         } catch(error){
             console.log(error)
         } 
-        console.log('entered handle delete')
     }
 
     const handleUser = (id) => {
@@ -67,14 +66,15 @@ const Home = (props) => {
             </TableHead>
             <TableBody>
             {users?.map((user) => (
-                <TableRow key={user._id}>
+                <TableRow onClick={() => handleUser(user._id)} key={user._id} className={classes.row}>
+                <TableCell>{user._id}</TableCell>
                 <TableCell>{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
                 <TableCell>{user.interests}</TableCell>
                 <TableCell>{user.program}</TableCell>
                 <TableCell>{user.title}</TableCell>
                 <TableCell><IconButton><EditIcon/></IconButton></TableCell>
-                <TableCell><IconButton onClick={() => handleDelete(user._id)}><DeleteForeverIcon /></IconButton></TableCell>
+                <TableCell><IconButton onClick={(e) => handleDelete(e, user._id)}><DeleteForeverIcon /></IconButton></TableCell>
                 </TableRow>
             ))}
             </TableBody>

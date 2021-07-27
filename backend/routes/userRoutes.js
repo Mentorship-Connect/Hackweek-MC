@@ -85,7 +85,7 @@ router.get('/v1/api/users/profile', protect, asyncHandler(async (req, res) => {
 }))
 
 // Get user by ID
-router.get('/v1/api/users/:id', protect, asyncHandler(async (req, res) => {
+router.get('/v1/api/users/:id', asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id).select('-password')
   
     if (user) {

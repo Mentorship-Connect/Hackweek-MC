@@ -8,7 +8,7 @@ import {
     LOGOUT,
     CLEAR_ERRORS,
     DELETE_SUCCESS,
-    DELETE_FAIL
+    DELETE_FAIL, 
 } from './types'
   
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -51,10 +51,10 @@ export default (state, action) => {
         }
 
         case DELETE_FAIL:
-            return {
-                ...state,
-                error: action.payload
-            }
+        return {
+            ...state,
+            error: action.payload
+        }
 
         case REGISTER_FAIL:
         case LOGIN_FAIL:

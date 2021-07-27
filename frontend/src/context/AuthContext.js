@@ -12,7 +12,7 @@ import {
   LOGOUT,
   CLEAR_ERRORS,
   DELETE_SUCCESS,
-  DELETE_FAIL
+  DELETE_FAIL,
 } from './types'
 
 export const AuthContext = createContext()
@@ -23,9 +23,8 @@ export const AuthContextProvider = props => {
         isAuthenticated: null,
         loading: true,
         users: null,
-        error: null
+        error: null,
     }
-    const [selectedUser, setSelectedUser] = useState('')
 
     const [state, dispatch] = useReducer(AuthReducer, initialState)
 
@@ -131,14 +130,13 @@ export const AuthContextProvider = props => {
         loading: true,
         users: null,
         error: null,
-        selectedUser,
-        setSelectedUser,
+        user: null,
         loadUsers,
         register,
         loginUser,
         logout,
         clearErrors,
-        deleteUser
+        deleteUser,
     }}>
         {props.children}
     </AuthContext.Provider>
