@@ -3,7 +3,7 @@ import { AuthContext } from '../context/AuthContext';
 
 // Material UI
 import { Avatar, Button, CssBaseline, TextField, Link, Grid, Typography, makeStyles, Container } from '@material-ui/core'; 
-import { Assignment as RegisterIcon } from '@material-ui/icons';
+import { AssignmentOutlined as RegisterIcon } from '@material-ui/icons';
 
 //need to refactor into styles.js
 const useStyles = makeStyles((theme) => ({
@@ -64,7 +64,7 @@ const Register = props =>{
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <RegisterIcon />
+            <RegisterIcon fontSize="large"/>
           </Avatar>
           <form className={classes.form} noValidate onSubmit={onSubmit}>
             <Grid container spacing={2}>
