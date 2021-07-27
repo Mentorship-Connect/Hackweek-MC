@@ -20,7 +20,7 @@ import useStyles from '../styles'
 const Home = (props) => {
     const classes = useStyles();
     let history = useHistory()
-    const { loadUser, deleteUser } = useContext(AuthContext)
+    const { loadUsers, deleteUser } = useContext(AuthContext)
     const [users, setUsers] = useState([])
     console.log('users', users);
 
@@ -29,19 +29,18 @@ const Home = (props) => {
         .then(res => {
             setUsers(res.data)
         }).catch(err => console.log(err))
-    },[loadUser])
+    },[loadUsers])
 
     console.log('users list', users)
 
-    const handleDelete = async (id) => {
+    const handleDelete = async (e, id) => {
+        e.stopPropagation()
+
         try {
-         const res = await deleteUser(id)
-         console.log(res)
-         return res
+            await deleteUser(id)
         } catch(error){
             console.log(error)
         } 
-        console.log('entered handle delete')
     }
 
     const handleUser = (id) => {
@@ -67,14 +66,15 @@ const Home = (props) => {
             </TableHead>
             <TableBody>
             {users?.map((user) => (
-                <TableRow key={user.key}>
+                <TableRow onClick={() => handleUser(user._id)} key={user._id} className={classes.row}>
+                <TableCell>{user._id}</TableCell>
                 <TableCell>{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
                 <TableCell>{user.interests}</TableCell>
                 <TableCell>{user.program}</TableCell>
                 <TableCell>{user.title}</TableCell>
                 <TableCell><IconButton><EditIcon/></IconButton></TableCell>
-                <TableCell><IconButton onClick={() => handleDelete(user._id)}><DeleteForeverIcon /></IconButton></TableCell>
+                <TableCell><IconButton onClick={(e) => handleDelete(e, user._id)}><DeleteForeverIcon /></IconButton></TableCell>
                 </TableRow>
             ))}
             </TableBody>

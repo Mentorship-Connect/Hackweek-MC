@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
             display: 'block',
         },
     },
+    row: {
+       cursor: 'pointer'
+    },
     search: {
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
