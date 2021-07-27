@@ -99,17 +99,17 @@ export const AuthContextProvider = props => {
             const config = {
                 headers: {
                     Authorization: `Bearer ${state.token}`,
+                }
             }
-        }
     
-        const res = await axios.delete(`/v1/api/users/${id}`, config)
-        console.log('res delete context', res)
-        dispatch({
-        type: DELETE_SUCCESS,
-        payload: res.data
-        })
+            const res = await axios.delete(`/v1/api/users/${id}`, config)
+    
+            dispatch({
+            type: DELETE_SUCCESS,
+            payload: res.data
+            })
 
-        loadUsers()
+            loadUsers()
         } catch (err) {
             dispatch({
             type: DELETE_FAIL,
