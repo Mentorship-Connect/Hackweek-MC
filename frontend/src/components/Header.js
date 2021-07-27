@@ -5,8 +5,9 @@ import { Link, useLocation } from 'react-router-dom';
 import decode from 'jwt-decode'
 
 import useStyles from '../styles';
-import { Tooltip, AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu, Button } from '@material-ui/core';
-import { SettingsInputComponent as ConnectIcon, Search as SearchIcon, AccountCircle, MoreVert as MoreIcon, ExitToApp } from '@material-ui/icons'
+import { Link } from 'react-router-dom';
+import { Tooltip, AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu } from '@material-ui/core';
+import { MeetingRoom as LoginIcon, Assignment as RegisterIcon, SettingsInputComponent as ConnectIcon, AccountCircle, MoreVert as MoreIcon, ExitToApp as ExitToAppIcon } from '@material-ui/icons'
 
 export default function Header() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
@@ -83,7 +84,25 @@ export default function Header() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-        
+        <MenuItem
+          component={Link}
+          to="/register"
+        >
+          <IconButton color="inherit">
+            <RegisterIcon />
+          </IconButton>
+            <p>Register</p>
+        </MenuItem>
+        <MenuItem
+          component={Link}
+          to="/login"
+        >
+          <IconButton color="inherit">
+            <LoginIcon />
+          </IconButton>
+            <p>Login</p>
+        </MenuItem>
+
         <MenuItem onClick={handleProfileMenuOpen}>   
               <IconButton
               aria-label="account of current user"
@@ -93,15 +112,15 @@ export default function Header() {
               >
                   <AccountCircle />
               </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-            <ExitToApp />
-        </IconButton>
-        <p>Sign Out</p>
-      </MenuItem>
-    </Menu>
+                <p>Profile</p>
+        </MenuItem>
+        <MenuItem>
+          <IconButton color="inherit">
+              <ExitToAppIcon />
+          </IconButton>
+          <p>Sign Out</p>
+        </MenuItem>
+      </Menu>
   );
 
   return (
@@ -114,28 +133,27 @@ export default function Header() {
             color="inherit"
             aria-label="open drawer"
           >
-            <Link to={"/"} style={{textDecoration: 'none', color: 'whitesmoke'}}><ConnectIcon /></Link>
+            <Link to={"/"} style={{textDecoration: 'none', color: 'white'}}><ConnectIcon /></Link>
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
             Mentorship Connect
           </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+          <Tooltip title="Register">
+              <IconButton color="inherit">
+              <Link to={"/register"} style={{textDecoration: 'none', color: 'white'}}><RegisterIcon /></Link>
+              </IconButton> 
+            </Tooltip>
+          
+          <Tooltip title="Login">
+              <IconButton color="inherit">
+              <Link to={"/login"} style={{textDecoration: 'none', color: 'white'}}><LoginIcon /></Link>
+              </IconButton>
+            </Tooltip>
+
             <Tooltip title="Profile">
-              <IconButton aria-label="show 4 new mails" color="inherit">
+              <IconButton color="inherit">
                 <AccountCircle />
               </IconButton>
             </Tooltip>
@@ -149,7 +167,7 @@ export default function Header() {
                 onClick={handleLogoutAndMenuClose}
                 color="inherit"
               >
-                <ExitToApp />
+                <ExitToAppIcon />
               </IconButton>
               </Tooltip>
             ) : (
