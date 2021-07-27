@@ -2,17 +2,10 @@ import React, { useState, useRef, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
 // Material UI
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import { Avatar, Button, CssBaseline, TextField, Link, Grid, Typography, makeStyles, Container } from '@material-ui/core'; 
+import { Assignment as RegisterIcon } from '@material-ui/icons';
 
+//need to refactor into styles.js
 const useStyles = makeStyles((theme) => ({
     paper: {
       marginTop: theme.spacing(8),
@@ -22,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
     avatar: {
       margin: theme.spacing(1),
-      backgroundColor: theme.palette.secondary.main,
+      backgroundColor: theme.palette.primary.main,
     },
     form: {
       width: '100%',
@@ -38,7 +31,7 @@ const Register = props =>{
     const authContext = useContext(AuthContext)
     const { register, isAuthenticated } = authContext
     const [user, setUser] = useState({name: "", email : "", password : ""});
-    const { name, email, password } = user
+    const { name, email, password, isAdmin, isMentor, title, program, interests, bio, availability } = user
 
     useEffect(()=>{
         if (isAuthenticated) {
@@ -71,10 +64,10 @@ const Register = props =>{
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
+            <RegisterIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Register Profile
           </Typography>
           <form className={classes.form} noValidate onSubmit={onSubmit}>
             <Grid container spacing={2}>
@@ -119,6 +112,7 @@ const Register = props =>{
                   value={password}
                 />
               </Grid>
+
             </Grid>
             <Button
               type="submit"

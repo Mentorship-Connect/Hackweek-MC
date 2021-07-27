@@ -101,6 +101,7 @@ const Home = (props) => {
             ))}
             </TableBody>
             </Table>
+            <Button varient="contained" color="primary" href="/register">Add New</Button>
         </Fragment>
     )
 }
