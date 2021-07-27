@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext, Fragment } from 'react'
 import axios from 'axios'
 import { AuthContext } from '../context/AuthContext'
+import { useHistory } from 'react-router-dom'
 
 // Material UI
 import { Grid, Button, CssBaseline, Typography } from '@material-ui/core'
@@ -18,9 +19,9 @@ import useStyles from '../styles'
 
 const Home = (props) => {
     const classes = useStyles();
-    const { loadUser } = useContext(AuthContext)
-  
-    const [users, setUsers] = useState()
+    let history = useHistory()
+    const { loadUser, deleteUser } = useContext(AuthContext)
+    const [users, setUsers] = useState([])
     console.log('users', users);
 
     useEffect(() => {
@@ -31,6 +32,21 @@ const Home = (props) => {
     },[loadUser])
 
     console.log('users', users)
+
+    const handleDelete = async (id) => {
+        try {
+         const res = await deleteUser(id)
+         console.log(res)
+         return res
+        } catch(error){
+            console.log(error)
+        } 
+        console.log('entered handle delete')
+    }
+
+    const handleUser = (id) => {
+        history.push(`/users/${id}`)
+    }
 
     return (
         <Fragment>
@@ -51,14 +67,14 @@ const Home = (props) => {
             </TableHead>
             <TableBody>
             {users?.map((user) => (
-                <TableRow key={user._id}>
+                <TableRow key={user.key}>
                 <TableCell>{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
                 <TableCell>{user.interests}</TableCell>
                 <TableCell>{user.program}</TableCell>
                 <TableCell>{user.title}</TableCell>
                 <TableCell><IconButton><EditIcon/></IconButton></TableCell>
-                <TableCell><IconButton><DeleteForeverIcon /></IconButton></TableCell>
+                <TableCell><IconButton onClick={() => handleDelete(user._id)}><DeleteForeverIcon /></IconButton></TableCell>
                 </TableRow>
             ))}
             </TableBody>

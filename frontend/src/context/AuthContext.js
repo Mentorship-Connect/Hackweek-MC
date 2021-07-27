@@ -1,4 +1,4 @@
-import { useReducer, createContext } from "react";
+import { useReducer, createContext, useState } from "react";
 import AuthReducer from './AuthReducer'
 import setAuthToken from './setToken'
 import axios from 'axios'
@@ -26,11 +26,12 @@ export const AuthContextProvider = props => {
         user: null,
         error: null
     }
+    const [selectedUser, setSelectedUser] = useState('')
 
     const [state, dispatch] = useReducer(AuthReducer, initialState)
 
     // ACTIONS
-    // Load User
+    // Load Users
     const loadUser = async () => {
     setAuthToken(localStorage.token)
 
@@ -93,14 +94,14 @@ export const AuthContextProvider = props => {
     }
 
     // Delete User
-    const deleteUser = async (id, user) => {
+    const deleteUser = async (id) => {
         const headers = {
-            Authorization: `Bearer ${user.token}`,
+            'Content-Type': 'application/json'
         }
     
         try {
-            const res = await axios.delete(`/v1/api/users/${id}`, user, headers)
-    
+            const res = await axios.delete(`/v1/api/users/${id}`, headers)
+            console.log('res delete context', res)
             dispatch({
             type: DELETE_SUCCESS,
             payload: res.data
@@ -129,6 +130,8 @@ export const AuthContextProvider = props => {
         loading: true,
         user: null,
         error: null,
+        selectedUser,
+        setSelectedUser,
         loadUser,
         register,
         loginUser,

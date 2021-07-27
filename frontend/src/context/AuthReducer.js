@@ -44,8 +44,7 @@ export default (state, action) => {
         }
 
         case DELETE_SUCCESS:
-            localStorage.removeItem('token')
-            localStorage.removeItem('profile')
+            console.log('hitting delete success')
         return {
             ...state,
             users: state.users.filter(user => user._id !== action.payload)
