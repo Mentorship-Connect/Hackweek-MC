@@ -53,10 +53,12 @@ export const AuthContextProvider = props => {
     const headers = {
         'Content-Type': 'application/json'
     }
+    console.log('User payload within authcontext Register:', user);
+
 
     try {
         const res = await axios.post('/v1/api/users', user, headers)
-
+        console.log('Post response in AuthContext', res.data);
         dispatch({
         type: REGISTER_SUCCESS,
         payload: res.data

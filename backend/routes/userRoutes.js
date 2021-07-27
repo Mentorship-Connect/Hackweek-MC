@@ -31,6 +31,8 @@ router.post('/v1/api/users', asyncHandler(async (req, res) => {
             email: user.email,
             isAdmin: user.isAdmin,
             isMentor: user.isMentor,
+            title: user.title,
+
             token: generateToken(user._id)
         })
     } else {

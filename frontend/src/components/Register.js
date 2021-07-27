@@ -30,8 +30,8 @@ const Register = props =>{
     const classes = useStyles()
     const authContext = useContext(AuthContext)
     const { register, isAuthenticated } = authContext
-    const [user, setUser] = useState({name: "", email : "", password : ""});
-    const { name, email, password, isAdmin, isMentor, title, program, interests, bio, availability } = user
+    const [user, setUser] = useState({name: "", email : "", password : "", title: "", program: "", interests: "", bio: "", availability: ""});
+    const { name, email, password, title, program, interests, bio, availability } = user
 
     useEffect(()=>{
         if (isAuthenticated) {
@@ -45,7 +45,7 @@ const Register = props =>{
     }
 
     const resetForm = () => {
-        setUser({name : "", email : "", password : ""});
+        setUser({name : "", email : "", password : "", title: "", program: "", interests: "", bio: "", availability: ""});
     }
 
     const onSubmit = (e) => {
@@ -54,6 +54,8 @@ const Register = props =>{
         if (name === '' || email === '' || password === '') {
           alert('Please enter all fields')
         } else {
+          console.log('Register User call:', register(user));
+          console.log('User within onSubmit:', user);
           register(user)
           resetForm()
         }
@@ -107,6 +109,20 @@ const Register = props =>{
                   autoComplete="password"
                   onChange={onChange}
                   value={password}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="title"
+                  label="Title"
+                  type="title"
+                  id="title"
+                  autoComplete="title"
+                  onChange={onChange}
+                  value={title}
                 />
               </Grid>
 

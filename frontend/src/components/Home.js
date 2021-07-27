@@ -31,7 +31,7 @@ const Home = (props) => {
         }).catch(err => console.log(err))
     },[loadUser])
 
-    console.log('users', users)
+    console.log('users list', users)
 
     const handleDelete = async (id) => {
         try {
