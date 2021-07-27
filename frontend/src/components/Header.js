@@ -1,11 +1,33 @@
 //TODO: add if else for authentication if not authenticated, show register option
-import React from 'react';
+import React, { Fragment, useContext, useState, useEffect } from 'react'
+import { AuthContext } from '../context/AuthContext'
+import { Link, useLocation } from 'react-router-dom';
+import decode from 'jwt-decode'
+
 import useStyles from '../styles';
 import { Link } from 'react-router-dom';
 import { Tooltip, AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu } from '@material-ui/core';
 import { MeetingRoom as LoginIcon, Assignment as RegisterIcon, SettingsInputComponent as ConnectIcon, AccountCircle, MoreVert as MoreIcon, ExitToApp as ExitToAppIcon } from '@material-ui/icons'
 
-export default function HeaderTest() {
+export default function Header() {
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+  const { isAuthenticated, logout } = useContext(AuthContext)
+  console.log(isAuthenticated)
+  const location = useLocation()
+
+  useEffect(() => {
+      const token = user?.token
+
+      if (token) {
+        const decodedToken = decode(token)
+        if (decodedToken.exp * 1000 < new Date().getTime()) {
+          logout()
+        }
+      }
+
+      setUser(JSON.parse(localStorage.getItem('profile')))
+  }, [location, logout, user?.token])
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -30,6 +52,12 @@ export default function HeaderTest() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleLogoutAndMenuClose = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+    logout()
+  };
+
   const menuId = 'primary-search-account-menu';
   //keeping here in case we want to use this elsewhere
   const renderMenu = (
@@ -43,7 +71,7 @@ export default function HeaderTest() {
       onClose={handleMenuClose}
     >
     </Menu>
-  );
+  ) 
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
@@ -129,18 +157,25 @@ export default function HeaderTest() {
                 <AccountCircle />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Sign Out">
+            {user ? (
+              <Tooltip title="Sign Out">
               <IconButton
                 edge="end"
                 aria-label="account of current user"
                 aria-controls={menuId}
                 aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
+                onClick={handleLogoutAndMenuClose}
                 color="inherit"
               >
                 <ExitToAppIcon />
               </IconButton>
-            </Tooltip>
+              </Tooltip>
+            ) : (
+              <Fragment>
+                <Button component={Link} to="/login">Login</Button>
+                <Button component={Link} to="/register">Register</Button>
+              </Fragment>
+            )}
           </div>
           <div className={classes.sectionMobile}>
             <IconButton

@@ -1,4 +1,4 @@
-import { useReducer, createContext } from "react";
+import { useReducer, createContext, useState } from "react";
 import AuthReducer from './AuthReducer'
 import setAuthToken from './setToken'
 import axios from 'axios'
@@ -10,8 +10,11 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
+  DELETE_SUCCESS,
+  DELETE_FAIL
 } from './types'
+import { config } from "dotenv";
 
 
 export const AuthContext = createContext()
@@ -24,11 +27,12 @@ export const AuthContextProvider = props => {
         user: null,
         error: null
     }
+    const [selectedUser, setSelectedUser] = useState('')
 
     const [state, dispatch] = useReducer(AuthReducer, initialState)
 
     // ACTIONS
-    // Load User
+    // Load Users
     const loadUser = async () => {
     setAuthToken(localStorage.token)
 
@@ -69,25 +73,50 @@ export const AuthContextProvider = props => {
 
     // Login User
     const loginUser = async (user) => {
-    const headers = {
-        'Content-Type': 'application/json'
+        const headers = {
+            'Content-Type': 'application/json'
+        }
+
+        try {
+            const res = await axios.post('/v1/api/users/login', user, headers)
+
+            dispatch({
+            type: LOGIN_SUCCESS,
+            payload: res.data
+            })
+
+            loadUser()
+        } catch (err) {
+            dispatch({
+            type: LOGIN_FAIL,
+            payload: err.response.data.msg
+            })
+        }
     }
 
-    try {
-        const res = await axios.post('/v1/api/users/login', user, headers)
-
+    // Delete User
+    const deleteUser = async (id) => {
+        try {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${state.token}`,
+            }
+        }
+    
+        const res = await axios.delete(`/v1/api/users/${id}`, config)
+        console.log('res delete context', res)
         dispatch({
-        type: LOGIN_SUCCESS,
+        type: DELETE_SUCCESS,
         payload: res.data
         })
 
         loadUser()
-    } catch (err) {
-        dispatch({
-        type: LOGIN_FAIL,
-        payload: err.response.data.msg
-        })
-    }
+        } catch (err) {
+            dispatch({
+            type: DELETE_FAIL,
+            payload: err.response.data.msg
+            })
+        }
     }
 
     // Logout
@@ -104,11 +133,14 @@ export const AuthContextProvider = props => {
         loading: true,
         user: null,
         error: null,
+        selectedUser,
+        setSelectedUser,
         loadUser,
         register,
         loginUser,
         logout,
-        clearErrors
+        clearErrors,
+        deleteUser
     }}>
         {props.children}
     </AuthContext.Provider>
