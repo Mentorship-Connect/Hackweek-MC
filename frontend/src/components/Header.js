@@ -3,7 +3,7 @@ import React from 'react';
 import useStyles from '../styles';
 import { Link } from 'react-router-dom';
 import { Tooltip, AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu } from '@material-ui/core';
-import { MeetingRoom as MeetingRoomIcon, Assignment as AssignmentIcon, SettingsInputComponent as ConnectIcon, Search as SearchIcon, AccountCircle, MoreVert as MoreIcon, ExitToApp as ExitToAppIcon } from '@material-ui/icons'
+import { MeetingRoom as LoginIcon, Assignment as RegisterIcon, SettingsInputComponent as ConnectIcon, AccountCircle, MoreVert as MoreIcon, ExitToApp as ExitToAppIcon } from '@material-ui/icons'
 
 export default function HeaderTest() {
   const classes = useStyles();
@@ -61,7 +61,7 @@ export default function HeaderTest() {
           to="/register"
         >
           <IconButton color="inherit">
-            <AssignmentIcon />
+            <RegisterIcon />
           </IconButton>
             <p>Register</p>
         </MenuItem>
@@ -70,7 +70,7 @@ export default function HeaderTest() {
           to="/login"
         >
           <IconButton color="inherit">
-            <MeetingRoomIcon />
+            <LoginIcon />
           </IconButton>
             <p>Login</p>
         </MenuItem>
@@ -114,13 +114,13 @@ export default function HeaderTest() {
           <div className={classes.sectionDesktop}>
           <Tooltip title="Register">
               <IconButton color="inherit">
-              <Link to={"/register"} style={{textDecoration: 'none', color: 'white'}}><AssignmentIcon /></Link>
+              <Link to={"/register"} style={{textDecoration: 'none', color: 'white'}}><RegisterIcon /></Link>
               </IconButton> 
             </Tooltip>
           
           <Tooltip title="Login">
               <IconButton color="inherit">
-              <Link to={"/login"} style={{textDecoration: 'none', color: 'white'}}><MeetingRoomIcon /></Link>
+              <Link to={"/login"} style={{textDecoration: 'none', color: 'white'}}><LoginIcon /></Link>
               </IconButton>
             </Tooltip>
 
