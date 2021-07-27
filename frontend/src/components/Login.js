@@ -14,6 +14,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { MeetingRoom as LoginIcon } from '@material-ui/icons'; 
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
     avatar: {
       margin: theme.spacing(1),
-      backgroundColor: theme.palette.secondary.main,
+      backgroundColor: theme.palette.primary.main,
     },
     form: {
       width: '100%',
@@ -68,10 +69,10 @@ function Login(props) {
         <CssBaseline />
         <div className={classes.paper}>
             <Avatar className={classes.avatar}>
-                <LockOutlinedIcon />
+                <LoginIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-                Sign in
+                Login
             </Typography>
             <form className={classes.form} noValidate onSubmit={handleSubmit}>
                 <TextField
@@ -111,7 +112,7 @@ function Login(props) {
                     color="primary"
                     className={classes.submit}
                 >
-                    Sign In
+                    Login
                 </Button>
                 <Grid container>
                     <Grid item xs>
