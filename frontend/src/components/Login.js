@@ -71,9 +71,6 @@ function Login(props) {
             <Avatar className={classes.avatar}>
                 <LoginIcon />
             </Avatar>
-            <Typography component="h1" variant="h5">
-                Login
-            </Typography>
             <form className={classes.form} noValidate onSubmit={handleSubmit}>
                 <TextField
                     variant="outlined"

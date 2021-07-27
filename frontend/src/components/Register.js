@@ -66,9 +66,6 @@ const Register = props =>{
           <Avatar className={classes.avatar}>
             <RegisterIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            Register Profile
-          </Typography>
           <form className={classes.form} noValidate onSubmit={onSubmit}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
