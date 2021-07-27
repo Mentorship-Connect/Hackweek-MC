@@ -31,7 +31,7 @@ const Home = (props) => {
         }).catch(err => console.log(err))
     },[loadUsers])
 
-    console.log('users', users)
+    console.log('users list', users)
 
     const handleDelete = async (e, id) => {
         e.stopPropagation()
@@ -50,7 +50,7 @@ const Home = (props) => {
     return (
         <Fragment>
             <CssBaseline />
-            <Typography variant="h1" align="center" color="textPrimary" gutterBottom>Mentors & Mentees</Typography>
+            <Typography variant="h2" align="center" color="textPrimary" gutterBottom>Mentors & Mentees</Typography>
 
             <Table size="small">
             <TableHead>

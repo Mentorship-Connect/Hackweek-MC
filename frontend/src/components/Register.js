@@ -1,37 +1,37 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import useStyles from '../styles';
 
 // Material UI
 import { Avatar, Button, CssBaseline, TextField, Link, Grid, Typography, makeStyles, Container } from '@material-ui/core'; 
-import { Assignment as RegisterIcon } from '@material-ui/icons';
+import { AssignmentOutlined as RegisterIcon } from '@material-ui/icons';
 
-//need to refactor into styles.js
-const useStyles = makeStyles((theme) => ({
-    paper: {
-      marginTop: theme.spacing(8),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-    },
-    avatar: {
-      margin: theme.spacing(1),
-      backgroundColor: theme.palette.primary.main,
-    },
-    form: {
-      width: '100%',
-      marginTop: theme.spacing(3),
-    },
-    submit: {
-      margin: theme.spacing(3, 0, 2),
-    },
-}));
+//defining program select options
+const programs = [
+  {
+    value: 'StepIntoTech Summer 2021',
+    label: 'StepIntoTech Summer 2021', 
+  },
+  {
+    value: 'StepIntoTech Fall 2021',
+    label: 'StepIntoTech Fall 2021',
+  },
+  {
+    value: 'Summer Internship 2021',
+    label: 'Summer Internship 2021',
+  },
+  {
+    value: 'Apprenticeship Summer 2021',
+    label: 'Apprenticeship Summer 2021',
+  }
+];
 
 const Register = props =>{
     const classes = useStyles()
     const authContext = useContext(AuthContext)
     const { register, isAuthenticated } = authContext
-    const [user, setUser] = useState({name: "", email : "", password : ""});
-    const { name, email, password, isAdmin, isMentor, title, program, interests, bio, availability } = user
+    const [user, setUser] = useState({name: "", email : "", password : "", title: "", program: "", interests: "", bio: "", availability: ""});
+    const { name, email, password, title, program, interests, bio, availability } = user
 
     useEffect(()=>{
         if (isAuthenticated) {
@@ -45,7 +45,7 @@ const Register = props =>{
     }
 
     const resetForm = () => {
-        setUser({name : "", email : "", password : ""});
+        setUser({name : "", email : "", password : "", title: "", program: "", interests: "", bio: "", availability: ""});
     }
 
     const onSubmit = (e) => {
@@ -54,6 +54,8 @@ const Register = props =>{
         if (name === '' || email === '' || password === '') {
           alert('Please enter all fields')
         } else {
+          console.log('Register User call:', register(user));
+          console.log('User within onSubmit:', user);
           register(user)
           resetForm()
         }
@@ -64,7 +66,7 @@ const Register = props =>{
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <RegisterIcon />
+            <RegisterIcon fontSize="large"/>
           </Avatar>
           <form className={classes.form} noValidate onSubmit={onSubmit}>
             <Grid container spacing={2}>
@@ -107,6 +109,84 @@ const Register = props =>{
                   autoComplete="password"
                   onChange={onChange}
                   value={password}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  name="title"
+                  label="Title"
+                  type="title"
+                  id="title"
+                  autoComplete="title"
+                  onChange={onChange}
+                  value={title}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  select
+                  fullWidth
+                  helperText="Please select your program."
+                  name="program"
+                  label="Program"
+                  type="program"
+                  id="program"
+                  autoComplete="program"
+                  onChange={onChange}
+                  value={program}                
+                >
+                  {programs.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </TextField>
+
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  name="interests"
+                  label="Interests"
+                  type="interests"
+                  id="interests"
+                  autoComplete="interests"
+                  onChange={onChange}
+                  value={interests}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  helperText="Tell us about yourself!"
+                  name="bio"
+                  label="Bio"
+                  type="bio"
+                  id="bio"
+                  autoComplete="bio"
+                  multiline
+                  onChange={onChange}
+                  value={bio}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="availability"
+                  label="Availability"
+                  type="availability"
+                  id="availability"
+                  autoComplete="bio"
+                  onChange={onChange}
+                  value={availability}
                 />
               </Grid>
 
