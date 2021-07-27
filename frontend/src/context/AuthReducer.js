@@ -6,7 +6,9 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
-    CLEAR_ERRORS
+    CLEAR_ERRORS,
+    DELETE_SUCCESS,
+    DELETE_FAIL
 } from './types'
   
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -21,8 +23,8 @@ export default (state, action) => {
         }
 
         case REGISTER_SUCCESS:
-        localStorage.setItem('token', action.payload.token)
-        localStorage.setItem('profile', JSON.stringify(action.payload))
+            localStorage.setItem('token', action.payload.token)
+            localStorage.setItem('profile', JSON.stringify(action.payload))
         return {
             ...state,
             ...action.payload,
@@ -31,9 +33,9 @@ export default (state, action) => {
         }
 
         case LOGIN_SUCCESS:
-        console.log(action.payload)
-        localStorage.setItem('token', action.payload.token)
-        localStorage.setItem('profile', JSON.stringify(action.payload))
+            console.log(action.payload)
+            localStorage.setItem('token', action.payload.token)
+            localStorage.setItem('profile', JSON.stringify(action.payload))
         return {
             ...state,
             ...action.payload,
@@ -41,12 +43,21 @@ export default (state, action) => {
             loading: false
         }
 
+        case DELETE_SUCCESS:
+            localStorage.removeItem('token')
+            localStorage.removeItem('profile')
+        return {
+            ...state,
+            users: state.users.filter(user => user._id !== action.payload)
+        }
+
         case REGISTER_FAIL:
         case LOGIN_FAIL:
         case AUTH_ERROR:
         case LOGOUT:
-        localStorage.removeItem('token')
-        localStorage.removeItem('profile')
+        case DELETE_FAIL:
+            localStorage.removeItem('token')
+            localStorage.removeItem('profile')
         return {
             ...state,
             token: null,

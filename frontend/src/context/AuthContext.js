@@ -10,7 +10,9 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
+  DELETE_SUCCESS,
+  DELETE_FAIL
 } from './types'
 
 
@@ -91,7 +93,7 @@ export const AuthContextProvider = props => {
     }
 
     // Delete User
-    const deleteUser = (id, user) => {
+    const deleteUser = async (id, user) => {
         const headers = {
             Authorization: `Bearer ${user.token}`,
         }
@@ -100,14 +102,14 @@ export const AuthContextProvider = props => {
             const res = await axios.delete(`/v1/api/users/${id}`, user, headers)
     
             dispatch({
-            type: LOGIN_SUCCESS,
+            type: DELETE_SUCCESS,
             payload: res.data
             })
     
             loadUser()
         } catch (err) {
             dispatch({
-            type: LOGIN_FAIL,
+            type: DELETE_FAIL,
             payload: err.response.data.msg
             })
         }
