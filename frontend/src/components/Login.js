@@ -69,7 +69,7 @@ function Login(props) {
         <CssBaseline />
         <div className={classes.paper}>
             <Avatar className={classes.avatar}>
-                <LoginIcon />
+                <LoginIcon fontSize="large" />
             </Avatar>
             <form className={classes.form} noValidate onSubmit={handleSubmit}>
                 <TextField
