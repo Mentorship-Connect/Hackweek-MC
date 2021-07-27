@@ -5,8 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 import decode from 'jwt-decode'
 
 import useStyles from '../styles';
-import { Link } from 'react-router-dom';
-import { Tooltip, AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu } from '@material-ui/core';
+import { Tooltip, AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu, Button } from '@material-ui/core';
 import { MeetingRoom as LoginIcon, Assignment as RegisterIcon, SettingsInputComponent as ConnectIcon, AccountCircle, MoreVert as MoreIcon, ExitToApp as ExitToAppIcon } from '@material-ui/icons'
 
 export default function Header() {
@@ -157,7 +156,7 @@ export default function Header() {
                 <AccountCircle />
               </IconButton>
             </Tooltip>
-            {user ? (
+            {user && (
               <Tooltip title="Sign Out">
               <IconButton
                 edge="end"
@@ -170,11 +169,6 @@ export default function Header() {
                 <ExitToAppIcon />
               </IconButton>
               </Tooltip>
-            ) : (
-              <Fragment>
-                <Button component={Link} to="/login">Login</Button>
-                <Button component={Link} to="/register">Register</Button>
-              </Fragment>
             )}
           </div>
           <div className={classes.sectionMobile}>
