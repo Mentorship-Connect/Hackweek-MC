@@ -5,7 +5,7 @@ import axios from 'axios'
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
-  USER_LOADED,
+  USERS_LOADED,
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
@@ -14,8 +14,6 @@ import {
   DELETE_SUCCESS,
   DELETE_FAIL
 } from './types'
-import { config } from "dotenv";
-
 
 export const AuthContext = createContext()
 
@@ -24,7 +22,7 @@ export const AuthContextProvider = props => {
         token: localStorage.getItem('token'),
         isAuthenticated: null,
         loading: true,
-        user: null,
+        users: null,
         error: null
     }
     const [selectedUser, setSelectedUser] = useState('')
@@ -33,14 +31,14 @@ export const AuthContextProvider = props => {
 
     // ACTIONS
     // Load Users
-    const loadUser = async () => {
+    const loadUsers = async () => {
     setAuthToken(localStorage.token)
 
     try {
         const res = await axios.get('/v1/api/users')
 
         dispatch({
-        type: USER_LOADED,
+        type: USERS_LOADED,
         payload: res.data
         })
     } catch (err) {
@@ -62,7 +60,7 @@ export const AuthContextProvider = props => {
         payload: res.data
         })
 
-        loadUser()
+        loadUsers()
     } catch (err) {
         dispatch({
         type: REGISTER_FAIL,
@@ -85,7 +83,7 @@ export const AuthContextProvider = props => {
             payload: res.data
             })
 
-            loadUser()
+            loadUsers()
         } catch (err) {
             dispatch({
             type: LOGIN_FAIL,
@@ -110,7 +108,7 @@ export const AuthContextProvider = props => {
         payload: res.data
         })
 
-        loadUser()
+        loadUsers()
         } catch (err) {
             dispatch({
             type: DELETE_FAIL,
@@ -131,11 +129,11 @@ export const AuthContextProvider = props => {
         token: state.token,
         isAuthenticated: state.isAuthenticated,
         loading: true,
-        user: null,
+        users: null,
         error: null,
         selectedUser,
         setSelectedUser,
-        loadUser,
+        loadUsers,
         register,
         loginUser,
         logout,

@@ -20,7 +20,7 @@ import useStyles from '../styles'
 const Home = (props) => {
     const classes = useStyles();
     let history = useHistory()
-    const { loadUser, deleteUser } = useContext(AuthContext)
+    const { loadUsers, deleteUser } = useContext(AuthContext)
     const [users, setUsers] = useState([])
     console.log('users', users);
 
@@ -29,7 +29,7 @@ const Home = (props) => {
         .then(res => {
             setUsers(res.data)
         }).catch(err => console.log(err))
-    },[loadUser])
+    },[loadUsers])
 
     console.log('users', users)
 
@@ -67,7 +67,7 @@ const Home = (props) => {
             </TableHead>
             <TableBody>
             {users?.map((user) => (
-                <TableRow key={user.key}>
+                <TableRow key={user._id}>
                 <TableCell>{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
                 <TableCell>{user.interests}</TableCell>

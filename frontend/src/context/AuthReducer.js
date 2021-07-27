@@ -1,7 +1,7 @@
 import {
     REGISTER_SUCCESS,
     REGISTER_FAIL,
-    USER_LOADED,
+    USERS_LOADED,
     AUTH_ERROR,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
@@ -14,12 +14,12 @@ import {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state, action) => {
     switch (action.type) {
-        case USER_LOADED:
+        case USERS_LOADED:
         return {
             ...state,
             isAuthenticated: true,
             loading: false,
-            user: action.payload
+            users: action.payload
         }
 
         case REGISTER_SUCCESS:
@@ -50,11 +50,16 @@ export default (state, action) => {
             users: state.users.filter(user => user._id !== action.payload)
         }
 
+        case DELETE_FAIL:
+            return {
+                ...state,
+                error: action.payload
+            }
+
         case REGISTER_FAIL:
         case LOGIN_FAIL:
         case AUTH_ERROR:
         case LOGOUT:
-        case DELETE_FAIL:
             localStorage.removeItem('token')
             localStorage.removeItem('profile')
         return {
@@ -62,7 +67,7 @@ export default (state, action) => {
             token: null,
             isAuthenticated: false,
             loading: false,
-            user: null,
+            users: null,
             error: action.payload
         }
 
