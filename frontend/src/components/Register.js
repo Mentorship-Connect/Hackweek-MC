@@ -26,6 +26,26 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+//defining program select options
+const programs = [
+  {
+    value: 'StepIntoTech Summer 2021',
+    label: 'StepIntoTech Summer 2021', 
+  },
+  {
+    value: 'StepIntoTech Fall 2021',
+    label: 'StepIntoTech Fall 2021',
+  },
+  {
+    value: 'Summer Internship 2021',
+    label: 'Summer Internship 2021',
+  },
+  {
+    value: 'Apprenticeship Summer 2021',
+    label: 'Apprenticeship Summer 2021',
+  }
+];
+
 const Register = props =>{
     const classes = useStyles()
     const authContext = useContext(AuthContext)
@@ -114,7 +134,6 @@ const Register = props =>{
               <Grid item xs={12}>
                 <TextField
                   variant="outlined"
-                  required
                   fullWidth
                   name="title"
                   label="Title"
@@ -123,6 +142,71 @@ const Register = props =>{
                   autoComplete="title"
                   onChange={onChange}
                   value={title}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  select
+                  fullWidth
+                  helperText="Please select your program."
+                  name="program"
+                  label="Program"
+                  type="program"
+                  id="program"
+                  autoComplete="program"
+                  onChange={onChange}
+                  value={program}                
+                >
+                  {programs.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </TextField>
+
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  name="interests"
+                  label="Interests"
+                  type="interests"
+                  id="interests"
+                  autoComplete="interests"
+                  onChange={onChange}
+                  value={interests}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  helperText="Tell us about yourself!"
+                  name="bio"
+                  label="Bio"
+                  type="bio"
+                  id="bio"
+                  autoComplete="bio"
+                  multiline
+                  onChange={onChange}
+                  value={bio}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="availability"
+                  label="Availability"
+                  type="availability"
+                  id="availability"
+                  autoComplete="bio"
+                  onChange={onChange}
+                  value={availability}
                 />
               </Grid>
 
