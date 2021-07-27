@@ -3,7 +3,7 @@ import React from 'react';
 import useStyles from '../styles';
 import { Link } from 'react-router-dom';
 import { Tooltip, AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu } from '@material-ui/core';
-import { SettingsInputComponent as ConnectIcon, Search as SearchIcon, AccountCircle, MoreVert as MoreIcon, ExitToApp } from '@material-ui/icons'
+import { MeetingRoom as MeetingRoomIcon, Assignment as AssignmentIcon, SettingsInputComponent as ConnectIcon, Search as SearchIcon, AccountCircle, MoreVert as MoreIcon, ExitToApp as ExitToAppIcon } from '@material-ui/icons'
 
 export default function HeaderTest() {
   const classes = useStyles();
@@ -56,7 +56,25 @@ export default function HeaderTest() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-        
+        <MenuItem
+          component={Link}
+          to="/register"
+        >
+          <IconButton color="inherit">
+            <AssignmentIcon />
+          </IconButton>
+            <p>Register</p>
+        </MenuItem>
+        <MenuItem
+          component={Link}
+          to="/login"
+        >
+          <IconButton color="inherit">
+            <MeetingRoomIcon />
+          </IconButton>
+            <p>Login</p>
+        </MenuItem>
+
         <MenuItem onClick={handleProfileMenuOpen}>   
               <IconButton
               aria-label="account of current user"
@@ -66,15 +84,15 @@ export default function HeaderTest() {
               >
                   <AccountCircle />
               </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-            <ExitToApp />
-        </IconButton>
-        <p>Sign Out</p>
-      </MenuItem>
-    </Menu>
+                <p>Profile</p>
+        </MenuItem>
+        <MenuItem>
+          <IconButton color="inherit">
+              <ExitToAppIcon />
+          </IconButton>
+          <p>Sign Out</p>
+        </MenuItem>
+      </Menu>
   );
 
   return (
@@ -87,7 +105,7 @@ export default function HeaderTest() {
             color="inherit"
             aria-label="open drawer"
           >
-            <Link to={"/"} style={{textDecoration: 'none', color: 'whitesmoke'}}><ConnectIcon /></Link>
+            <Link to={"/"} style={{textDecoration: 'none', color: 'white'}}><ConnectIcon /></Link>
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
             Mentorship Connect
@@ -107,8 +125,20 @@ export default function HeaderTest() {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+          <Tooltip title="Register">
+              <IconButton color="inherit">
+              <Link to={"/register"} style={{textDecoration: 'none', color: 'white'}}><AssignmentIcon /></Link>
+              </IconButton> 
+            </Tooltip>
+          
+          <Tooltip title="Login">
+              <IconButton color="inherit">
+              <Link to={"/login"} style={{textDecoration: 'none', color: 'white'}}><MeetingRoomIcon /></Link>
+              </IconButton>
+            </Tooltip>
+
             <Tooltip title="Profile">
-              <IconButton aria-label="show 4 new mails" color="inherit">
+              <IconButton color="inherit">
                 <AccountCircle />
               </IconButton>
             </Tooltip>
@@ -121,7 +151,7 @@ export default function HeaderTest() {
                 onClick={handleProfileMenuOpen}
                 color="inherit"
               >
-                <ExitToApp />
+                <ExitToAppIcon />
               </IconButton>
             </Tooltip>
           </div>
