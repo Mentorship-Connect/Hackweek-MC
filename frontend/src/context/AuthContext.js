@@ -14,6 +14,7 @@ import {
   DELETE_SUCCESS,
   DELETE_FAIL
 } from './types'
+import { config } from "dotenv";
 
 
 export const AuthContext = createContext()
@@ -95,19 +96,21 @@ export const AuthContextProvider = props => {
 
     // Delete User
     const deleteUser = async (id) => {
-        const headers = {
-            'Content-Type': 'application/json'
+        try {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${state.token}`,
+            }
         }
     
-        try {
-            const res = await axios.delete(`/v1/api/users/${id}`, headers)
-            console.log('res delete context', res)
-            dispatch({
-            type: DELETE_SUCCESS,
-            payload: res.data
-            })
-    
-            loadUser()
+        const res = await axios.delete(`/v1/api/users/${id}`, config)
+        console.log('res delete context', res)
+        dispatch({
+        type: DELETE_SUCCESS,
+        payload: res.data
+        })
+
+        loadUser()
         } catch (err) {
             dispatch({
             type: DELETE_FAIL,
