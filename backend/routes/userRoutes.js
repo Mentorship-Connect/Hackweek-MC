@@ -57,6 +57,12 @@ router.post('/v1/api/users/login', asyncHandler(async (req, res) => {
             email: user.email,
             isAdmin: user.isAdmin,
             isMentor: user.isMentor,
+            avatar: user.avatar,
+            title: user.title,
+            program: user.program,
+            interests: user.interests,
+            bio: user.bio,
+            availability: user.availability,
             token: generateToken(user._id)
         })
     } else {

@@ -9,22 +9,33 @@ import { Grid, Button, CssBaseline, Typography, Table, TableBody, TableCell, Tab
 import { Edit as EditIcon, DeleteForever as DeleteForeverIcon, FilterList as FilterListIcon} from '@material-ui/icons'
 import useStyles from '../styles'
 
-const Home = (props) => {
+const Admin = (props) => {
     const classes = useStyles();
     let history = useHistory()
-    const { loadUsers, deleteUser, editUser } = useContext(AuthContext)
+    const { loadUsers, deleteUser } = useContext(AuthContext)
     const [users, setUsers] = useState([])
     console.log('users', users);
+    const isAuth = localStorage.getItem('token')
+    const currUser = localStorage.getItem('profile') && JSON.parse(localStorage.getItem('profile'))
 
 
     useEffect(() => {
-        axios.get('/v1/api/users')
-        .then(res => {
-            setUsers(res.data)
-        }).catch(err => console.log(err))
-    },[loadUsers])
-
-    console.log('users list', users)
+        if (isAuth && currUser.isAdmin !== null && currUser.isAdmin) {
+            const fetchData = async () => {
+                try {
+                    const res = await axios.get('/v1/api/users')
+                    setUsers(res.data)
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+            fetchData()
+        } else {
+            history.push('/')
+        }
+       
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[history, isAuth, loadUsers])
 
     const handleDelete = async (e, id) => {
         e.stopPropagation()
@@ -76,7 +87,7 @@ const Home = (props) => {
                 <TableCell>{user.interests}</TableCell>
                 <TableCell>{user.program}</TableCell>
                 <TableCell>{user.title}</TableCell>
-                <TableCell><IconButton onClick={(e) => handleEdit(e, user._id)}><EditIcon/></IconButton></TableCell>
+                <TableCell><IconButton onClick={(e) => handleEdit(e, user._id)}><EditIcon /></IconButton></TableCell>
                 <TableCell><IconButton onClick={(e) => handleDelete(e, user._id)}><DeleteForeverIcon /></IconButton></TableCell>
                 </TableRow>
             ))}
@@ -87,4 +98,4 @@ const Home = (props) => {
     )
 }
 
-export default Home
+export default Admin
