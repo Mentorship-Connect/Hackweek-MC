@@ -10,7 +10,7 @@ import { AuthContextProvider } from './context/AuthContext';
 import Login from './components/Login';
 import Header from './components/Header';
 import UserPage from './components/UserPage';
-import Admin from './components/Admin';
+import Admin from './components/AdminHome';
 
 function App() {
   const classes = useStyles();
