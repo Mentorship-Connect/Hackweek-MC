@@ -20,7 +20,7 @@ import useStyles from '../styles'
 const Home = (props) => {
     const classes = useStyles();
     let history = useHistory()
-    const { loadUsers, deleteUser } = useContext(AuthContext)
+    const { loadUsers, deleteUser, editUser } = useContext(AuthContext)
     const [users, setUsers] = useState([])
     console.log('users', users);
 
@@ -43,6 +43,11 @@ const Home = (props) => {
         } 
     }
 
+    const handleEdit = async (e, id) => {
+        e.stopPropagation()
+        history.push(`users/${id}/update`)
+    }
+
     const handleUser = (id) => {
         history.push(`/users/${id}`)
     }
@@ -55,6 +60,7 @@ const Home = (props) => {
             <Table size="small">
             <TableHead>
             <TableRow>
+                <TableCell>ID</TableCell>
                 <TableCell>Name</TableCell>
                 <TableCell>Email</TableCell>
                 <TableCell>Interests</TableCell>
@@ -73,7 +79,7 @@ const Home = (props) => {
                 <TableCell>{user.interests}</TableCell>
                 <TableCell>{user.program}</TableCell>
                 <TableCell>{user.title}</TableCell>
-                <TableCell><IconButton><EditIcon/></IconButton></TableCell>
+                <TableCell><IconButton onClick={(e) => handleEdit(e, user._id)}><EditIcon/></IconButton></TableCell>
                 <TableCell><IconButton onClick={(e) => handleDelete(e, user._id)}><DeleteForeverIcon /></IconButton></TableCell>
                 </TableRow>
             ))}

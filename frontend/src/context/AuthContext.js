@@ -13,6 +13,8 @@ import {
   CLEAR_ERRORS,
   DELETE_SUCCESS,
   DELETE_FAIL,
+  EDIT_SUCCESS,
+  EDIT_FAIL
 } from './types'
 
 export const AuthContext = createContext()
@@ -118,6 +120,32 @@ export const AuthContextProvider = props => {
         }
     }
 
+    // Edit User
+    const editUser = async (id, userInfo) => {
+        try {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${state.token}`,
+                    'Content-Type': 'application/json'
+                }
+            }
+    
+            const res = await axios.put(`/v1/api/users/${id}`, userInfo, config)
+            console.log("res from editUser ", "res")
+            dispatch({
+            type: EDIT_SUCCESS,
+            payload: res.data
+            })
+
+            loadUsers()
+        } catch (err) {
+            dispatch({
+            type: EDIT_FAIL,
+            payload: err.response.data.msg
+            })
+        }
+    }
+
     // Logout
     const logout = () => dispatch({ type: LOGOUT })
 
@@ -139,6 +167,7 @@ export const AuthContextProvider = props => {
         logout,
         clearErrors,
         deleteUser,
+        editUser,
     }}>
         {props.children}
     </AuthContext.Provider>

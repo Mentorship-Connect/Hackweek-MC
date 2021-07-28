@@ -9,6 +9,8 @@ import {
     CLEAR_ERRORS,
     DELETE_SUCCESS,
     DELETE_FAIL, 
+    EDIT_SUCCESS,
+    EDIT_FAIL
 } from './types'
   
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -50,12 +52,20 @@ export default (state, action) => {
             users: state.users.filter(user => user._id !== action.payload)
         }
 
+        case EDIT_FAIL:
         case DELETE_FAIL:
         return {
             ...state,
             error: action.payload
         }
-
+        
+        case EDIT_SUCCESS:
+            console.log("from user reducer", state.users)
+        return {
+            ...state,
+            users: state.users.map(user => user._id === action.payload._id ? action.payload : user)
+        }
+        
         case REGISTER_FAIL:
         case LOGIN_FAIL:
         case AUTH_ERROR:
