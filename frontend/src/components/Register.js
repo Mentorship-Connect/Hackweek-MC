@@ -18,6 +18,7 @@ const interestsArray = [
   { title: 'Marketing', }, 
   { title: 'IT', }, 
   { title: 'People', },
+  { title: 'Product',}
 ];
 
 //defining program select options
@@ -320,7 +321,7 @@ const Register = props =>{
                   <div>
                     <div {...getRootProps()}>
                       <Label {...getInputLabelProps()}><Typography>Select one or more interests.</Typography></Label>
-                      <InputWrapper ref={setAnchorEl} className={focused ? 'focused' : ''} value={interests}>
+                      <InputWrapper ref={setAnchorEl} className={focused ? 'focused' : ''} >
                         {value.map((option, index) => (
                           <Tag label={option.title} {...getTagProps({ index })} />
                         ))}
@@ -329,7 +330,7 @@ const Register = props =>{
                       </InputWrapper>
                     </div>
                     {groupedOptions.length > 0 ? (
-                      <Listbox {...getListboxProps()}>
+                      <Listbox {...getListboxProps()} value={interests}>
                         {groupedOptions.map((option, index) => (
                           <li {...getOptionProps({ option, index })}>
                             <span>{option.title}</span>
