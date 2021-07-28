@@ -10,7 +10,7 @@ import { AuthContextProvider } from './context/AuthContext';
 import Login from './components/Login';
 import Header from './components/Header';
 import UserPage from './components/UserPage';
-import TestTable from './components/TestTable';
+import Admin from './components/Admin';
 
 function App() {
   const classes = useStyles();
@@ -20,10 +20,9 @@ function App() {
       <Header />
         <Container className={classes.container}>
           <Switch>
-            <Route exact path='/' component={Home} />
+            <Route exact path='/' component={Admin} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
-            <Route exact path ='/testtable' component={TestTable} />
             <Route exact path ='/users/:id' component={UserPage} />
           </Switch>
         </Container>

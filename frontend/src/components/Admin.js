@@ -5,11 +5,11 @@ import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 // Material UI
-import { Grid, Paper, Button, CssBaseline, Typography, Table, TableContainer, TableBody, TableCell, TableHead, TableRow, TableSortLabel, TablePagination, FormControlLabel, Switch, Checkbox, IconButton } from '@material-ui/core'
-import { Edit as EditIcon, DeleteForever as DeleteForeverIcon, FilterList as FilterListIcon} from '@material-ui/icons'
+import { Button, Paper, CssBaseline, Typography, Table, TableContainer, TableBody, TableCell, TableHead, TableRow, TableSortLabel, TablePagination, FormControlLabel, Switch, IconButton } from '@material-ui/core'
+import { Edit as EditIcon, Delete as DeleteIcon, } from '@material-ui/icons'
 import useStyles from '../styles'
 
-const TestTable = (props) => {
+const Admin = (props) => {
     const classes = useStyles();
     let history = useHistory()
     const { loadUsers, deleteUser, editUser } = useContext(AuthContext)
@@ -132,12 +132,12 @@ const TestTable = (props) => {
       }
       
       const headCells = [
-        { id: 'iD', numeric: false, disablePadding: true, label: 'ID' },
         { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
-        { id: 'email', numeric: true, disablePadding: false, label: 'Email' },
-        { id: 'program', numeric: true, disablePadding: false, label: 'Program' },
-        { id: 'carbs', numeric: true, disablePadding: false, label: 'Carbs (g)' },
-        { id: 'protein', numeric: true, disablePadding: false, label: 'Protein (g)' },
+        { id: 'email', numeric: false, disablePadding: false, label: 'Email' },
+        { id: 'program', numeric: false, disablePadding: false, label: 'Program' },
+        { id: 'interests', numeric: false, disablePadding: false, label: 'Interests' },
+        { id: 'edit', numeric: false, disablePadding: false, label: 'Edit' },
+        { id: 'delete', numeric: false, disablePadding: false, label: 'Delete' },
       ];
       
       function EnhancedTableHead(props) {
@@ -147,39 +147,33 @@ const TestTable = (props) => {
         };
       
         return (
-          <TableHead>
-            <TableRow>
-              <TableCell padding="checkbox">
-                <Checkbox
-                  indeterminate={numSelected > 0 && numSelected < rowCount}
-                  checked={rowCount > 0 && numSelected === rowCount}
-                  onChange={onSelectAllClick}
-                  inputProps={{ 'aria-label': 'select all desserts' }}
-                />
-              </TableCell>
-              {headCells.map((headCell) => (
-                <TableCell
-                  key={headCell.id}
-                  align={headCell.numeric ? 'right' : 'left'}
-                  padding={headCell.disablePadding ? 'none' : 'normal'}
-                  sortDirection={orderBy === headCell.id ? order : false}
-                >
-                  <TableSortLabel
-                    active={orderBy === headCell.id}
-                    direction={orderBy === headCell.id ? order : 'asc'}
-                    onClick={createSortHandler(headCell.id)}
-                  >
-                    {headCell.label}
-                    {orderBy === headCell.id ? (
-                      <span className={classes.visuallyHidden}>
-                        {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                      </span>
-                    ) : null}
-                  </TableSortLabel>
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
+            <Fragment>
+                <TableHead>
+                <TableRow>
+                    {headCells.map((headCell) => (
+                    <TableCell
+                        key={headCell.id}
+                        align={headCell.numeric ? 'right' : 'left'}
+                        padding={headCell.disablePadding ? 'none' : 'normal'}
+                        sortDirection={orderBy === headCell.id ? order : false}
+                    >
+                        <TableSortLabel
+                        active={orderBy === headCell.id}
+                        direction={orderBy === headCell.id ? order : 'asc'}
+                        onClick={createSortHandler(headCell.id)}
+                        >
+                        {headCell.label}
+                        {orderBy === headCell.id ? (
+                            <span className={classes.visuallyHidden}>
+                            {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                            </span>
+                        ) : null}
+                        </TableSortLabel>
+                    </TableCell>
+                    ))}
+                </TableRow>
+                </TableHead>
+          </Fragment>
         );
       }
 
@@ -195,6 +189,7 @@ const TestTable = (props) => {
 
     return (
         <Fragment className={classes.root}>
+            <Typography varient="h1">Users</Typography>
         <Paper className={classes.paper}>
           <TableContainer>
             <Table
@@ -223,24 +218,17 @@ const TestTable = (props) => {
                       <TableRow
                         hover
                         onClick={(event) => handleClick(event, user.name)}
-                        role="checkbox"
                         aria-checked={isItemSelected}
                         tabIndex={-1}
                         key={user.name}
                         selected={isItemSelected}
                       >
-                        <TableCell padding="checkbox">
-                          <Checkbox
-                            checked={isItemSelected}
-                            inputProps={{ 'aria-labelledby': labelId }}
-                          />
-                        </TableCell>
-                        <TableCell component="th" id={labelId} scope="user" padding="none">
-                          {user._id}
-                        </TableCell>
                         <TableCell align="right">{user.name}</TableCell>
                         <TableCell align="right">{user.email}</TableCell>
                         <TableCell align="right">{user.program}</TableCell>
+                        <TableCell align="right">{user.interests}</TableCell>
+                        <TableCell><IconButton onClick={(e) => handleEdit(e, user._id)}><EditIcon style={{color: '#FFC300'}}/></IconButton></TableCell>
+                        <TableCell><IconButton onClick={(e) => handleDelete(e, user._id)}><DeleteIcon color="secondary" /></IconButton></TableCell>
                       </TableRow>
                     );
                   })}
@@ -264,10 +252,11 @@ const TestTable = (props) => {
         </Paper>
         <FormControlLabel
           control={<Switch checked={dense} onChange={handleChangeDense} />}
-          label="Dense padding"
+          label="Compact View"
         />
+        <Button varient="contained" color="primary" href="/register">Add New</Button>
       </Fragment>
     )
 }
 
-export default TestTable
+export default Admin

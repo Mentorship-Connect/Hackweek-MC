@@ -36,7 +36,6 @@ router.post('/v1/api/users', asyncHandler(async (req, res) => {
             interests: user.interests,
             bio: user.bio,
             availability: user.availability,
-
             token: generateToken(user._id)
         })
     } else {
