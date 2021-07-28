@@ -46,7 +46,6 @@ export default (state, action) => {
         }
 
         case DELETE_SUCCESS:
-            console.log('hitting delete success')
         return {
             ...state,
             users: state.users.filter(user => user._id !== action.payload)
@@ -60,12 +59,11 @@ export default (state, action) => {
         }
         
         case EDIT_SUCCESS:
-            console.log("from user reducer", state.users)
         return {
             ...state,
             users: state.users.map(user => user._id === action.payload._id ? action.payload : user)
         }
-        
+
         case REGISTER_FAIL:
         case LOGIN_FAIL:
         case AUTH_ERROR:

@@ -1,8 +1,8 @@
 import axios from 'axios'
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import usceStyles from '../styles';
 import { useParams } from 'react-router-dom'
+import useStyles from '../styles';
 
 // Material UI
 import { Avatar, Button, CssBaseline, TextField, Link, Grid, Typography, makeStyles, Container } from '@material-ui/core'; 
@@ -28,31 +28,32 @@ const programs = [
     }
 ];
 
-const UpdateUserPage = () => {
+const UpdateUserPage = (props) => {
+    console.log('props..', props)
     const classes = useStyles()
     const authContext = useContext(AuthContext)
-    const { register, isAuthenticated } = authContext
+    const { register, isAuthenticated, editUser } = authContext
     const [user, setUser] = useState({name: "", email : "", password : "", title: "", program: "", interests: "", bio: "", availability: ""});
     const { name, email, password, title, program, interests, bio, availability } = user
 
     const {id} = useParams()
-    const [selectedUser, setSelectedUser] = useState('')
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.put(`/v1/api/users/${id}`)
-                setSelectedUser(response.data)
+                const response = await axios.get(`/v1/api/users/${id}`)
+                setUser(response.data)
             } catch (error) {
                 console.log(error)
             }
         }
         fetchData()
     }, [id])
+
+    console.log('current user ID', user)
    
     const onChange = e =>{
         setUser({...user, [e.target.name]: e.target.value});
-        console.log('clicking')
     }
 
     const resetForm = () => {
@@ -65,10 +66,10 @@ const UpdateUserPage = () => {
         if (name === '' || email === '' || password === '') {
           alert('Please enter all fields')
         } else {
-          console.log('Register User call:', register(user));
+          console.log('update User call:', editUser(user));
           console.log('User within onSubmit:', user);
-          register(user)
-          resetForm()
+          editUser(id, user)
+          props.history.push('/')
         }
     }
 
@@ -209,15 +210,8 @@ const UpdateUserPage = () => {
               color="primary"
               className={classes.submit}
             >
-              Register
+              Update
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/login" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
           </form>
         </div>
       </Container>
