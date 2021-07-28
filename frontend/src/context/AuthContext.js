@@ -131,9 +131,8 @@ export const AuthContextProvider = props => {
             }
     
             const res = await axios.put(`/v1/api/users/${id}`, userInfo, config)
-            console.log("res from editUser ", "res")
             dispatch({
-            type: EDIT_SUCCESS,
+            type: USERS_LOADED, EDIT_SUCCESS,
             payload: res.data
             })
 
@@ -141,7 +140,7 @@ export const AuthContextProvider = props => {
         } catch (err) {
             dispatch({
             type: EDIT_FAIL,
-            payload: err.response.data.msg
+            payload: err
             })
         }
     }

@@ -10,6 +10,7 @@ import { AuthContextProvider } from './context/AuthContext';
 import Login from './components/Login';
 import Header from './components/Header';
 import UserPage from './components/UserPage';
+import UpdateUserPage from './components/UpdateUserPage';
 
 function App() {
   const classes = useStyles();
@@ -24,6 +25,7 @@ function App() {
             <Route exact path='/register' component={Register} />
             <Route exact path ='/helloworld' component={HelloWorld} />
             <Route exact path ='/users/:id' component={UserPage} />
+            <Route exact path ='/users/:id/update' component={UpdateUserPage} />
           </Switch>
         </Container>
       </Router>

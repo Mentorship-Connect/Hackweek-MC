@@ -31,8 +31,6 @@ const Home = (props) => {
         }).catch(err => console.log(err))
     },[loadUsers])
 
-    console.log('users list', users)
-
     const handleDelete = async (e, id) => {
         e.stopPropagation()
 
@@ -79,7 +77,7 @@ const Home = (props) => {
                 <TableCell>{user.interests}</TableCell>
                 <TableCell>{user.program}</TableCell>
                 <TableCell>{user.title}</TableCell>
-                <TableCell><IconButton onClick={(e) => handleEdit(e, user._id)}><EditIcon/></IconButton></TableCell>
+                <TableCell><IconButton onClick={(e) => handleEdit(e, user._id)}><EditIcon /></IconButton></TableCell>
                 <TableCell><IconButton onClick={(e) => handleDelete(e, user._id)}><DeleteForeverIcon /></IconButton></TableCell>
                 </TableRow>
             ))}
