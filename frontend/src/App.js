@@ -25,7 +25,6 @@ function App() {
             <Route exact path='/admin' component={Admin} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
-            <Route exact path ='/helloworld' component={HelloWorld} />
             <Route exact path ='/users/:id' component={UserPage} />
             <Route exact path ='/users/:id/update' component={UpdateUserPage} />
           </Switch>
