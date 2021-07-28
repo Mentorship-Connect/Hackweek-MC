@@ -17,19 +17,31 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 import useStyles from '../styles'
 
-const Home = (props) => {
+const Admin = (props) => {
     const classes = useStyles();
     let history = useHistory()
     const { loadUsers, deleteUser, editUser } = useContext(AuthContext)
     const [users, setUsers] = useState([])
     console.log('users', users);
+    const isAuth = localStorage.getItem('token')
+    const currUser = localStorage.getItem('profile') && JSON.parse(localStorage.getItem('profile'))
 
     useEffect(() => {
-        axios.get('/v1/api/users')
-        .then(res => {
-            setUsers(res.data)
-        }).catch(err => console.log(err))
-    },[loadUsers])
+        if (isAuth && currUser.isAdmin !== null && currUser.isAdmin) {
+            const fetchData = async () => {
+                try {
+                    const res = await axios.get('/v1/api/users')
+                    setUsers(res.data)
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+            fetchData()
+        } else {
+            history.push('/')
+        }
+       
+    },[history, isAuth, loadUsers])
 
     const handleDelete = async (e, id) => {
         e.stopPropagation()
@@ -88,4 +100,4 @@ const Home = (props) => {
     )
 }
 
-export default Home
+export default Admin

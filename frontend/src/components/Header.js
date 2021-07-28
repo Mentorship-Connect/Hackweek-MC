@@ -1,8 +1,9 @@
 //TODO: add if else for authentication if not authenticated, show register option
 import React, { Fragment, useContext, useState, useEffect } from 'react'
 import { AuthContext } from '../context/AuthContext'
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import decode from 'jwt-decode'
+
 
 import useStyles from '../styles';
 import { Tooltip, AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu, Button } from '@material-ui/core';
@@ -13,8 +14,10 @@ export default function Header() {
   const { isAuthenticated, logout } = useContext(AuthContext)
   console.log(isAuthenticated)
   const location = useLocation()
+  const {id} = useParams()
+  console.log(id)
 
-  useEffect(() => {
+  useEffect(() => { 
       const token = user?.token
 
       if (token) {
@@ -102,13 +105,13 @@ export default function Header() {
             <p>Login</p>
         </MenuItem>
 
-        <MenuItem onClick={handleProfileMenuOpen}>   
+        <MenuItem>   
               <IconButton
-              aria-label="account of current user"
-              aria-controls="primary-search-account-menu"
-              aria-haspopup="true"
-              color="inherit"
-              >
+                aria-label="account of current user"
+                aria-controls="primary-search-account-menu"
+                aria-haspopup="true"
+                color="inherit"
+                >
                   <AccountCircle />
               </IconButton>
                 <p>Profile</p>
