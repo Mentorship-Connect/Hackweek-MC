@@ -2,19 +2,11 @@ import React, { useEffect, useState, useContext, Fragment } from 'react'
 import axios from 'axios'
 import { AuthContext } from '../context/AuthContext'
 import { useHistory } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 // Material UI
-import { Grid, Button, CssBaseline, Typography } from '@material-ui/core'
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-
-
+import { Grid, Button, CssBaseline, Typography, Table, TableBody, TableCell, TableHead, TableRow, TableSortLabel, IconButton } from '@material-ui/core'
+import { Edit as EditIcon, DeleteForever as DeleteForeverIcon, FilterList as FilterListIcon} from '@material-ui/icons'
 import useStyles from '../styles'
 
 const Home = (props) => {
@@ -23,6 +15,7 @@ const Home = (props) => {
     const { loadUsers, deleteUser, editUser } = useContext(AuthContext)
     const [users, setUsers] = useState([])
     console.log('users', users);
+
 
     useEffect(() => {
         axios.get('/v1/api/users')
@@ -55,17 +48,21 @@ const Home = (props) => {
     return (
         <Fragment>
             <CssBaseline />
-            <Typography variant="h2" align="center" color="textPrimary" gutterBottom>Mentors & Mentees</Typography>
-
+            <Typography variant="h3" align="center" color="textPrimary" gutterBottom>Users</Typography>
             <Table size="small">
             <TableHead>
             <TableRow>
-                <TableCell>ID</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Interests</TableCell>
-                <TableCell>Program</TableCell>
-                <TableCell>Title</TableCell>
+                <TableCell>
+                    <TableSortLabel
+                    >
+                    ID
+                    </TableSortLabel>
+                </TableCell>
+                <TableCell><TableSortLabel>Name</TableSortLabel></TableCell>
+                <TableCell><TableSortLabel>Email</TableSortLabel></TableCell>
+                <TableCell><TableSortLabel>Interests</TableSortLabel></TableCell>
+                <TableCell><TableSortLabel>Program</TableSortLabel></TableCell>
+                <TableCell><TableSortLabel>Title</TableSortLabel></TableCell>
                 <TableCell>Edit</TableCell>
                 <TableCell>Delete</TableCell>
             </TableRow>

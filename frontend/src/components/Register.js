@@ -316,30 +316,30 @@ const Register = props =>{
                   onChange={onChange}
                   value={interests}
                 />
-                    <NoSsr>
-      <div>
-        <div {...getRootProps()}>
-          <Label {...getInputLabelProps()}><Typography>Select one or more interests.</Typography></Label>
-          <InputWrapper ref={setAnchorEl} className={focused ? 'focused' : ''} value={interests}>
-            {value.map((option, index) => (
-              <Tag label={option.title} {...getTagProps({ index })} />
-            ))}
+                <NoSsr>
+                  <div>
+                    <div {...getRootProps()}>
+                      <Label {...getInputLabelProps()}><Typography>Select one or more interests.</Typography></Label>
+                      <InputWrapper ref={setAnchorEl} className={focused ? 'focused' : ''} value={interests}>
+                        {value.map((option, index) => (
+                          <Tag label={option.title} {...getTagProps({ index })} />
+                        ))}
 
-            <input {...getInputProps()} />
-          </InputWrapper>
-        </div>
-        {groupedOptions.length > 0 ? (
-          <Listbox {...getListboxProps()}>
-            {groupedOptions.map((option, index) => (
-              <li {...getOptionProps({ option, index })}>
-                <span>{option.title}</span>
-                <CheckIcon fontSize="small" />
-              </li>
-            ))}
-          </Listbox>
-        ) : null}
-      </div>
-    </NoSsr>
+                        <input {...getInputProps()} />
+                      </InputWrapper>
+                    </div>
+                    {groupedOptions.length > 0 ? (
+                      <Listbox {...getListboxProps()}>
+                        {groupedOptions.map((option, index) => (
+                          <li {...getOptionProps({ option, index })}>
+                            <span>{option.title}</span>
+                            <CheckIcon fontSize="small" />
+                          </li>
+                        ))}
+                      </Listbox>
+                    ) : null}
+                  </div>
+                </NoSsr>
               </Grid>
               <Grid item xs={12}>
                 <TextField
