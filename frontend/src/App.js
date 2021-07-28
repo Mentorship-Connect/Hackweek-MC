@@ -21,8 +21,8 @@ function App() {
       <Header />
         <Container className={classes.container}>
           <Switch>
-            <Route exact path='/admin' component={Admin} />
             <Route exact path='/' component={HomePage} />
+            <Route exact path='/admin' component={Admin} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
             <Route exact path ='/helloworld' component={HelloWorld} />

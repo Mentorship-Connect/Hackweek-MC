@@ -4,7 +4,7 @@ import { AuthContext } from '../context/AuthContext'
 import { useHistory } from 'react-router-dom'
 
 // Material UI
-import { Grid, Button, CssBaseline, Typography } from '@material-ui/core'
+import { Button, CssBaseline, Typography } from '@material-ui/core'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -20,7 +20,7 @@ import useStyles from '../styles'
 const Admin = (props) => {
     const classes = useStyles();
     let history = useHistory()
-    const { loadUsers, deleteUser, editUser } = useContext(AuthContext)
+    const { loadUsers, deleteUser } = useContext(AuthContext)
     const [users, setUsers] = useState([])
     console.log('users', users);
     const isAuth = localStorage.getItem('token')
@@ -41,6 +41,7 @@ const Admin = (props) => {
             history.push('/')
         }
        
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[history, isAuth, loadUsers])
 
     const handleDelete = async (e, id) => {
