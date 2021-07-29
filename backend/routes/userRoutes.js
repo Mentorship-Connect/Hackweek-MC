@@ -15,7 +15,7 @@ router.get('/v1/api/users', asyncHandler(async (req, res) => {
 // Create a user
 router.post('/v1/api/users', asyncHandler(async (req, res) => {
 
-    const { name, email, password, isMentor } = req.body
+    const { name, email, password, isMentor, title, program, interests, bio, availability, avatar} = req.body
 
     const userExist = await User.findOne({ email })
     if (userExist) {
@@ -23,7 +23,7 @@ router.post('/v1/api/users', asyncHandler(async (req, res) => {
         throw new Error('User already exist!')
     }
 
-    const user = await User.create({ name, email, password, isMentor })
+    const user = await User.create({ name, email, password, isMentor, title, program, interests, bio, availability, avatar })
     if (user) {
         res.status(201).json({
             _id: user._id,
@@ -31,6 +31,12 @@ router.post('/v1/api/users', asyncHandler(async (req, res) => {
             email: user.email,
             isAdmin: user.isAdmin,
             isMentor: user.isMentor,
+            title: user.title,
+            program: user.program,
+            interests: user.interests,
+            bio: user.bio,
+            availability: user.availability,
+            avatar: user.avatar,
             token: generateToken(user._id)
         })
     } else {
@@ -52,6 +58,12 @@ router.post('/v1/api/users/login', asyncHandler(async (req, res) => {
             email: user.email,
             isAdmin: user.isAdmin,
             isMentor: user.isMentor,
+            avatar: user.avatar,
+            title: user.title,
+            program: user.program,
+            interests: user.interests,
+            bio: user.bio,
+            availability: user.availability,
             token: generateToken(user._id)
         })
     } else {
@@ -84,40 +96,15 @@ router.get('/v1/api/users/profile', protect, asyncHandler(async (req, res) => {
     }
 }))
 
-// Update user profile
-router.put('/v1/api/users/profile', protect, asyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id)
-
+// Get user by ID
+router.get('/v1/api/users/:id', asyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id).select('-password')
+  
     if (user) {
-        user.name = req.body.name || user.name
-        user.email = req.body.email || user.email
-        user.avatar = req.body.avatar || user.avatar
-        user.title = req.body.title || user.title
-        user.program = req.body.program || user.program
-        user.interests = req.body.interests || user.interests
-        user.bio = req.body.bio || user.bio
-        user.availability = req.body.availability || user.availability
-        if (req.body.password) {
-            user.password = req.body.password
-        }
-        const updatedUser = await user.save()
-
-        res.json({
-            _id: updatedUser._id,
-            name: updatedUser.name,
-            email: updatedUser.email,
-            isAdmin: updatedUser.isAdmin,
-            isMentor: updatedUser.isMentor,
-            avatar: updatedUser.avatar,
-            title: updatedUser.title,
-            program: updatedUser.program,
-            interests: updatedUser.interests,
-            bio: updatedUser.bio,
-            availability: updatedUser.availability
-        })
+      res.json(user)
     } else {
-        res.status(404)
-        throw new Error('User not found')
+      res.status(404)
+      throw new Error('User not found')
     }
 }))
 
@@ -158,7 +145,44 @@ router.put('/v1/api/users/profile', protect, asyncHandler(async (req, res) => {
     }
 }))
 
-// Delete user
+// Update user by ID - Admin only
+router.put('/v1/api/users/:id', protect, admin, asyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id)
+
+    if (user) {
+        user.name = req.body.name || user.name
+        user.email = req.body.email || user.email
+        user.avatar = req.body.avatar || user.avatar
+        user.title = req.body.title || user.title
+        user.program = req.body.program || user.program
+        user.interests = req.body.interests || user.interests
+        user.bio = req.body.bio || user.bio
+        user.availability = req.body.availability || user.availability
+        user.isAdmin = req.body.isAdmin
+        
+        const updatedUser = await user.save()
+
+        res.json({
+            _id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            isAdmin: updatedUser.isAdmin,
+            isMentor: updatedUser.isMentor,
+            avatar: updatedUser.avatar,
+            title: updatedUser.title,
+            program: updatedUser.program,
+            interests: updatedUser.interests,
+            bio: updatedUser.bio,
+            availability: updatedUser.availability,
+            isAdmin: updatedUser.isAdmin
+        })
+    } else {
+        res.status(404)
+        throw new Error('User not found')
+    }
+}))
+
+// Delete user by ID - Admin only
 router.delete('/v1/api/users/:id', protect, admin, asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id)
     if (user) {
@@ -169,6 +193,5 @@ router.delete('/v1/api/users/:id', protect, admin, asyncHandler(async (req, res)
         throw new Error('User not found')
     }
 }))
-
 
 export default router

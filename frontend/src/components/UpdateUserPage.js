@@ -1,82 +1,75 @@
-import axios from 'axios';
-import React, { useState, useRef, useEffect, useContext } from 'react';
+import axios from 'axios'
+import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { useParams } from 'react-router-dom'
 import useStyles from '../styles';
-
 import FileBase from 'react-file-base64'
 
 // Material UI
-import { Avatar, Button, CssBaseline, TextField, Link, Grid, Typography, makeStyles, Container, Tooltip, IconButton } from '@material-ui/core'; 
+import { Avatar, Button, CssBaseline, TextField, Link, Grid, Typography, makeStyles, Container } from '@material-ui/core'; 
 import { AssignmentOutlined as RegisterIcon } from '@material-ui/icons';
 
 //defining program select options
 const programs = [
-  {
-    value: 'StepIntoTech Summer 2021',
-    label: 'StepIntoTech Summer 2021', 
-  },
-  {
-    value: 'StepIntoTech Fall 2021',
-    label: 'StepIntoTech Fall 2021',
-  },
-  {
-    value: 'Summer Internship 2021',
-    label: 'Summer Internship 2021',
-  },
-  {
-    value: 'Apprenticeship Summer 2021',
-    label: 'Apprenticeship Summer 2021',
-  }
+    {
+      value: 'StepIntoTech Summer 2021',
+      label: 'StepIntoTech Summer 2021', 
+    },
+    {
+      value: 'StepIntoTech Fall 2021',
+      label: 'StepIntoTech Fall 2021',
+    },
+    {
+      value: 'Summer Internship 2021',
+      label: 'Summer Internship 2021',
+    },
+    {
+      value: 'Apprenticeship Summer 2021',
+      label: 'Apprenticeship Summer 2021',
+    }
 ];
 
-const Register = props =>{
+const UpdateUserPage = (props) => {
+    console.log('props..', props)
     const classes = useStyles()
     const authContext = useContext(AuthContext)
-    const { register, isAuthenticated } = authContext
-    const [user, setUser] = useState({name: "", email : "", password : "", title: "", program: "", interests: "", bio: "", availability: "", isMentor: false, avatar: ""});
-    const { name, email, password, title, program, interests, bio, availability, isMentor, avatar } = user
+    const { register, isAuthenticated, editUser } = authContext
+    const [user, setUser] = useState({name: "", email : "", password : "", title: "", program: "", interests: "", bio: "", availability: "", isAdmin: "", isMentor: ""});
+    const { name, email, password, title, program, interests, bio, availability, isAdmin, isMentor } = user
 
-    useEffect(()=>{
-        if (isAuthenticated) {
-            props.history.push('/')
-          }
-    }, [isAuthenticated, props.history]);
+    const {id} = useParams()
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`/v1/api/users/${id}`)
+                setUser(response.data)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        fetchData()
+    }, [id])
+
+    console.log('current user ID', user)
+   
     const onChange = e =>{
         setUser({...user, [e.target.name]: e.target.value});
-        console.log('clicking')
     }
 
     const resetForm = () => {
-        setUser({name : "", email : "", password : "", title: "", program: "", interests: "", bio: "", availability: "", isMentor: false, avatar: ""});
+        setUser({name : "", email : "", password : "", title: "", program: "", interests: "", bio: "", availability: ""});
     }
 
-    const onSubmit = async (e) => {
+    const onSubmit = (e) => {
         e.preventDefault()
 
         if (name === '' || email === '' || password === '') {
           alert('Please enter all fields')
         } else {
           console.log('User within onSubmit:', user);
-          const file = e.target.files
-          const formData = new FormData()
-          formData.append('image', file)
-      
-          try {
-            const config = {
-              headers: {
-                'Content-Type': 'multipart/form-data',
-              },
-            }
-            
-            const { data } = await axios.post('/v1/api/upload', formData, config)
-            console.log('data..from uploadfile handler ', data)
-            setUser(data)
-          } catch (error) {
-            console.log(error)
-          }
-          register(user)
-          resetForm()
+          editUser(id, user)
+          props.history.push('/')
         }
     }
 
@@ -227,19 +220,12 @@ const Register = props =>{
               color="primary"
               className={classes.submit}
             >
-              Register
+              Update
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/login" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
           </form>
         </div>
       </Container>
     )
 }
 
-export default Register;
+export default UpdateUserPage

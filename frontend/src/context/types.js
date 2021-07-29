@@ -1,0 +1,12 @@
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+export const REGISTER_FAIL = 'REGISTER_FAIL';
+export const USERS_LOADED = 'USERS_LOADED';
+export const AUTH_ERROR = 'AUTH_ERROR';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAIL = 'LOGIN_FAIL';
+export const LOGOUT = 'LOGOUT';
+export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+export const DELETE_SUCCESS = 'DELETE_SUCCESS'
+export const DELETE_FAIL = 'DELETE_FAIL'
+export const EDIT_SUCCESS = 'EDIT_SUCCESS'
+export const EDIT_FAIL = 'EDIT_FAIL'
