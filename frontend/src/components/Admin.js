@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom'
 
 // Material UI
 import { Button, IconButton } from '@material-ui/core'
-import { Visibility as ViewIcon, Edit as EditIcon, Delete as DeleteIcon, SignalCellularConnectedNoInternet0Bar, } from '@material-ui/icons'
+import { Edit as EditIcon } from '@material-ui/icons'
 import useStyles from '../styles'
 import MUIDataTable from "mui-datatables";
 
