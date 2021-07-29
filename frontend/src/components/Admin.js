@@ -2,10 +2,9 @@ import React, { useEffect, useState, useContext, Fragment } from 'react'
 import axios from 'axios'
 import { AuthContext } from '../context/AuthContext'
 import { useHistory } from 'react-router-dom'
-import PropTypes from 'prop-types'
 
 // Material UI
-import { Button, Paper, CssBaseline, Typography, Table, TableContainer, TableBody, TableCell, TableHead, TableRow, TableSortLabel, TablePagination, FormControlLabel, Switch, IconButton } from '@material-ui/core'
+import { Button, IconButton } from '@material-ui/core'
 import { Edit as EditIcon, Delete as DeleteIcon, SignalCellularConnectedNoInternet0Bar, } from '@material-ui/icons'
 import useStyles from '../styles'
 import MUIDataTable from "mui-datatables";
