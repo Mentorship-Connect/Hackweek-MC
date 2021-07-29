@@ -46,8 +46,6 @@ export default (state, action) => {
         }
 
         case DELETE_SUCCESS:
-            console.log('action payload in reducer', action.payload)
-            console.log('users in delete success reducer', state.users)
         return {
             ...state,
             ...action.payload,

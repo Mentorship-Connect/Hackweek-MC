@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useParams } from 'react-router-dom'
 import useStyles from '../styles';
+import FileBase from 'react-file-base64'
 
 // Material UI
 import { Avatar, Button, CssBaseline, TextField, Link, Grid, Typography, makeStyles, Container } from '@material-ui/core'; 
@@ -201,34 +202,16 @@ const UpdateUserPage = (props) => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  name="availability"
-                  label="Availability"
-                  type="availability"
-                  id="availability"
-                  autoComplete="bio"
-                  onChange={onChange}
-                  value={availability}
-                />
+                <div>
+                  <FileBase 
+                      type="file"
+                      multiple={false}
+                      onDone={({ base64 }) => {
+                        setUser({ ...user, avatar: base64 })
+                      }}
+                    />
+                </div>
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  name="availability"
-                  label="Availability"
-                  type="availability"
-                  id="availability"
-                  autoComplete="bio"
-                  onChange={onChange}
-                  value={availability}
-                />
-              </Grid>
-
             </Grid>
             <Button
               type="submit"

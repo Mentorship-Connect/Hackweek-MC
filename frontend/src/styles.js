@@ -84,16 +84,6 @@ const useStyles = makeStyles((theme) => ({
             display: 'none',
         },
     },
-    input: {
-        display: "none",
-      },
-    faceImage: {
-        color: theme.palette.primary.light,
-    },
-    fileInput: {
-        width: '97%',
-        margin: '10px 0'
-    },
     paper: {
         marginTop: theme.spacing(8),
         display: 'flex',

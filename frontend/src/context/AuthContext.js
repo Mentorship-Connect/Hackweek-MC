@@ -105,7 +105,7 @@ export const AuthContextProvider = props => {
             }
     
             const res = await axios.delete(`/v1/api/users/${id}`, config)
-            console.log('res... in delete user context', res.data)
+     
             dispatch({
             type: DELETE_SUCCESS,
             payload: res.data
