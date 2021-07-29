@@ -6,10 +6,8 @@ import useStyles from '../styles';
 import FileBase from 'react-file-base64'
 
 // Material UI
-import { InputLabel, Select, FormControl, Avatar, Button, CssBaseline, TextField, Link, Grid, Typography, makeStyles, Container, NoSsr } from '@material-ui/core'; 
+import { Avatar, Button, CssBaseline, TextField, Link, Grid, Typography, makeStyles, Container, NoSsr } from '@material-ui/core'; 
 import { AssignmentOutlined as RegisterIcon, Check as CheckIcon, Close as CloseIcon } from '@material-ui/icons';
-import useAutocomplete from '@material-ui/lab/useAutocomplete';
-import styled from 'styled-components';
 
 //defining program select options
 const interestsArray = [
