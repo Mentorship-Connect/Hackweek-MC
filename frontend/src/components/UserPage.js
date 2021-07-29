@@ -1,14 +1,16 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
+import PropTypes from 'prop-types'
 
 // Material UI
-
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import { Button, Typography, Grid, Paper, CssBaseline, } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
+import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons'
+//<Button><EditIcon style={{color: '#FFC300'}}/></Button>
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,6 +52,7 @@ const UserPage = () => {
     }, [id])
 
     return (
+      <>
         <Grid container component="main" className={classes.root}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={6} className={classes.image} />
@@ -57,20 +60,21 @@ const UserPage = () => {
           <div className={classes.paper}>
               {selectedUser && (
                 <>
-                <Typography component="h1" variant="h5" gutterBottom>{selectedUser.avatar}</Typography>
-                <Typography component="h1" variant="h5" gutterBottom>{selectedUser.name}</Typography>
-                <Typography component="h1" variant="h5" gutterBottom>{selectedUser.email}</Typography>
-                <Typography component="h1" variant="h5" gutterBottom>{selectedUser.isMentor ? "Mentor": "Mentee"}</Typography>
-                <Typography component="h1" variant="h5" gutterBottom>{selectedUser.title}</Typography>
-                <Typography component="h1" variant="h5" gutterBottom>{selectedUser.program}</Typography>
-                <Typography component="h1" variant="h5" gutterBottom>{selectedUser.bio}</Typography>
-                <Typography component="h1" variant="h5" gutterBottom>{selectedUser.interest}</Typography>
-                <Typography component="h1" variant="h5" gutterBottom>{selectedUser.availability}</Typography>
+                <Typography component="h1" variant="h1" gutterBottom>{selectedUser.avatar}</Typography>
+                <Typography component="h1" variant="h5" gutterBottom>Full Name: {selectedUser.name}</Typography>
+                <Typography component="h1" variant="h5" gutterBottom>Email: {selectedUser.email}</Typography>
+                <Typography component="h1" variant="h5" gutterBottom>Role: {selectedUser.isMentor ? "Mentor": "Mentee"}</Typography>
+                <Typography component="h1" variant="h5" gutterBottom>Title: {selectedUser.title}</Typography>
+                <Typography component="h1" variant="h5" gutterBottom>Program: {selectedUser.program}</Typography>
+                <Typography component="h1" variant="h5" gutterBottom>Bio: {selectedUser.bio}</Typography>
+                <Typography component="h1" variant="h5" gutterBottom>Interests: {selectedUser.interest}</Typography>
+                <Typography component="h1" variant="h5" gutterBottom>Availability: {selectedUser.availability}</Typography>
                 </>
               )}  
           </div>
         </Grid>
       </Grid>
+      </>
     )
 }
 
