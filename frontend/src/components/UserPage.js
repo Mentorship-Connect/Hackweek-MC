@@ -60,7 +60,7 @@ const UserPage = () => {
           <div className={classes.paper}>
               {selectedUser && (
                 <>
-                <Typography component="h1" variant="h1" fontWeight="fontWeightBold" gutterBottom>{selectedUser.avatar}</Typography>
+                <Typography component="h1" variant="h1" gutterBottom>{selectedUser.avatar}</Typography>
                 <Typography component="h1" variant="h5" gutterBottom>Full Name: {selectedUser.name}</Typography>
                 <Typography component="h1" variant="h5" gutterBottom>Email: {selectedUser.email}</Typography>
                 <Typography component="h1" variant="h5" gutterBottom>Role: {selectedUser.isMentor ? "Mentor": "Mentee"}</Typography>
