@@ -4,8 +4,7 @@ import useStyles from './styles';
 
 //importing components
 import Register from './components/Register';
-import Admin from './components/Admin';
-import HelloWorld from './components/HelloWorld';
+import Admin from './components/AdminHome';
 import { AuthContextProvider } from './context/AuthContext';
 import Login from './components/Login';
 import Header from './components/Header';
