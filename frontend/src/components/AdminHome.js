@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 
 // Material UI
 import { Button, Paper, CssBaseline, Typography, Table, TableContainer, TableBody, TableCell, TableHead, TableRow, TableSortLabel, TablePagination, FormControlLabel, Switch, IconButton } from '@material-ui/core'
+import SearchBar from 'material-ui-search-bar'
 import { Edit as EditIcon, Delete as DeleteIcon, } from '@material-ui/icons'
 import useStyles from '../styles'
 
@@ -47,7 +48,7 @@ const Admin = (props) => {
 
     //tablesort
     const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('calories');
+    const [orderBy, setOrderBy] = React.useState('name');
     const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
@@ -147,7 +148,6 @@ const Admin = (props) => {
         };
       
         return (
-            <Fragment>
                 <TableHead>
                 <TableRow>
                     {headCells.map((headCell) => (
@@ -173,7 +173,6 @@ const Admin = (props) => {
                     ))}
                 </TableRow>
                 </TableHead>
-          </Fragment>
         );
       }
 
@@ -187,10 +186,18 @@ const Admin = (props) => {
         rowCount: PropTypes.number.isRequired,
         };
 
+    //filtering the table
+    //I could capture the input and send it to the backend and create a search route and return it
+    //I could do it in the ui and filter the users array
+
+    //capturing the search input
+
     return (
         <Fragment className={classes.root}>
             <Typography varient="h1">Users</Typography>
         <Paper className={classes.paper}>
+        <SearchBar 
+        />
           <TableContainer>
             <Table
               className={classes.table}

@@ -11,6 +11,7 @@ import Header from './components/Header';
 import UserPage from './components/UserPage';
 import UpdateUserPage from './components/UpdateUserPage';
 import HomePage from './components/HomePage';
+import TestTable from './components/MuiTableTest'
 
 function App() {
   const classes = useStyles();
@@ -22,6 +23,7 @@ function App() {
           <Switch>
             <Route exact path='/' component={HomePage} />
             <Route exact path='/admin' component={Admin} />
+            <Route exact path='/test' component={TestTable} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
             <Route exact path ='/users/:id' component={UserPage} />
