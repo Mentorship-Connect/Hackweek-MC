@@ -37,7 +37,9 @@ const MuiTableTest = (props) => {
     }
 
     const handleEdit = async (e, id) => {
-        e.stopPropagation()
+        //e.stopPropagation()
+        console.log('e', e);
+        console.log('ID within edit user: ', id);
         history.push(`users/${id}/update`)
     }
 
@@ -79,6 +81,30 @@ const MuiTableTest = (props) => {
         sort: false,
         }
         },
+        {
+            name: "Edit",
+            options: {
+              filter: true,
+              sort: false,
+              empty: true,
+              customBodyRender: (value, tableMeta, updateValue) => {
+                return (
+                    <IconButton 
+                        onClick={(e) => {
+                            console.log('tableMeta: ', tableMeta.rowData[1]);
+                            for (let i = 0; i < users.length; i++) {
+                                if (tableMeta.rowData[1] === users[i].email) {
+                                    console.log('Users emails match: ', users[i].email);
+                                    handleEdit(users[i]._id);
+                                }
+                            }
+                        }}>
+                        <EditIcon style={{color: '#FFC300'}}/>
+                    </IconButton>
+                );
+              }
+            }
+          },
     ];
 
     const options = {
@@ -98,9 +124,9 @@ const MuiTableTest = (props) => {
             for (let i = 0; i < users.length; i++) {
                 if (e[1] === users[i].email) {
                     console.log('Users emails match: ', users[i].email);
-                }   handleUser(users[i]._id);
+                   handleUser(users[i]._id);
+                }
             }
-
         },
     };
 
