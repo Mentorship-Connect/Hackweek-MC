@@ -6,7 +6,6 @@ import PropTypes from 'prop-types'
 
 // Material UI
 import { Button, Paper, CssBaseline, Typography, Table, TableContainer, TableBody, TableCell, TableHead, TableRow, TableSortLabel, TablePagination, FormControlLabel, Switch, IconButton } from '@material-ui/core'
-import SearchBar from 'material-ui-search-bar'
 import { Edit as EditIcon, Delete as DeleteIcon, } from '@material-ui/icons'
 import useStyles from '../styles'
 import MUIDataTable from "mui-datatables";
@@ -49,41 +48,39 @@ const MuiTableTest = (props) => {
 
 
     const columns = [
-    {
-    name: "name",
-    label: "Name",
-    options: {
-    filter: true,
-    sort: true,
-    }
-    },
-    {
-    name: "email",
-    label: "Email",
-    options: {
-    filter: true,
-    sort: true,
-    }
-    },
-    {
-    name: "program",
-    label: "Program",
-    options: {
-    filter: true,
-    sort: true,
-    }
-    },
-    {
-    name: "interests",
-    label: "Interests",
-    options: {
-    filter: true,
-    sort: false,
-    }
-    },
-];
-
-//onrowsdelete option
+        {
+        name: "name",
+        label: "Name",
+        options: {
+        filter: true,
+        sort: true,
+        }
+        },
+        {
+        name: "email",
+        label: "Email",
+        options: {
+        filter: true,
+        sort: true,
+        }
+        },
+        {
+        name: "program",
+        label: "Program",
+        options: {
+        filter: true,
+        sort: true,
+        }
+        },
+        {
+        name: "interests",
+        label: "Interests",
+        options: {
+        filter: true,
+        sort: false,
+        }
+        },
+    ];
 
     const options = {
         filterType: 'checkbox',
