@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import useStyles from '../styles';
-
 import FileBase from 'react-file-base64'
 
 // Material UI
