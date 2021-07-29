@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom'
 
 // Material UI
 import { Button, IconButton } from '@material-ui/core'
-import { Edit as EditIcon, Delete as DeleteIcon, SignalCellularConnectedNoInternet0Bar, } from '@material-ui/icons'
+import { Visibility as ViewIcon, Edit as EditIcon, Delete as DeleteIcon, SignalCellularConnectedNoInternet0Bar, } from '@material-ui/icons'
 import useStyles from '../styles'
 import MUIDataTable from "mui-datatables";
 
@@ -27,7 +27,6 @@ const MuiTableTest = (props) => {
     console.log('users list', users)
 
     const handleDelete = async (e, id) => {
-        //e.stopPropagation()
         try {
             await deleteUser(id)
         } catch(error){
@@ -52,32 +51,40 @@ const MuiTableTest = (props) => {
         filter: true,
         sort: true,
         }
-        },
-        {
-        name: "email",
-        label: "Email",
-        options: {
-        filter: true,
-        sort: true,
-        }
-        },
-        {
-        name: "program",
-        label: "Program",
-        options: {
-        filter: true,
-        sort: true,
-        }
-        },
-        {
-        name: "interests",
-        label: "Interests",
-        options: {
-        filter: true,
-        sort: false,
-        }
-        },
-        {
+    },
+    {
+    name: "isMentor",
+    label: "Role",
+    options: {
+    filter: true,
+    sort: true,
+    }
+    },
+    {
+    name: "email",
+    label: "Email",
+    options: {
+    filter: true,
+    sort: true,
+    }
+    },
+    {
+    name: "program",
+    label: "Program",
+    options: {
+    filter: true,
+    sort: true,
+    }
+    },
+    {
+    name: "interests",
+    label: "Interests",
+    options: {
+    filter: true,
+    sort: false,
+    }
+    },
+    {
         name: "Edit",
         options: {
             filter: true,
@@ -88,9 +95,9 @@ const MuiTableTest = (props) => {
                 <IconButton 
                     onClick={(e) => {
                         e.stopPropagation();
-                        console.log('tableMeta: ', tableMeta.rowData[1]);
+                        console.log('tableMeta: ', tableMeta.rowData[2]);
                         for (let i = 0; i < users.length; i++) {
-                            if (tableMeta.rowData[1] === users[i].email) {
+                            if (tableMeta.rowData[2] === users[i].email) {
                                 console.log('Users emails match: ', users[i].email);
                                 handleEdit(e, users[i]._id);
                             }
@@ -102,7 +109,7 @@ const MuiTableTest = (props) => {
             }
         }
         },
-    ];
+];
 
     const options = {
         filterType: 'checkbox',
@@ -117,9 +124,9 @@ const MuiTableTest = (props) => {
             }
         },
         onRowClick: (e) => {
-            console.log('On Rows Click - Clicked', e[1]);
+            console.log('On Rows Click - Clicked', e[2]);
             for (let i = 0; i < users.length; i++) {
-                if (e[1] === users[i].email) {
+                if (e[2] === users[i].email) {
                     console.log('Users emails match: ', users[i].email);
                    handleUser(users[i]._id);
                 }
