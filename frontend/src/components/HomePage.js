@@ -78,7 +78,7 @@ const HomePage = (props) => {
     <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={2}>
             {users?.map((user) => (
-                <Grid item xs={12} sm={6} md={4}>
+                <Grid item xs={12} sm={6} md={4} key={user._id}>
                     <Card  key={user._id} className={classes.card} onClick={() => handleUser(user._id)}>
                         <CardHeader
                             avatar={
@@ -91,7 +91,7 @@ const HomePage = (props) => {
                             />
                         <CardMedia
                         className={classes.media}
-                        image="https://source.unsplash.com/random"
+                        image={user.avatar ? user.avatar : ("https://source.unsplash.com/random")}
                         title="Random image"
                         />
                         <CardContent>

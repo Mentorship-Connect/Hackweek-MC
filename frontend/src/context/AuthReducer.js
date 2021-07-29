@@ -48,7 +48,7 @@ export default (state, action) => {
         case DELETE_SUCCESS:
         return {
             ...state,
-            users: state.users.filter(user => user._id !== action.payload)
+            ...action.payload,
         }
 
         case EDIT_FAIL:

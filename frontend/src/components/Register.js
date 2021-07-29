@@ -1,6 +1,9 @@
+import axios from 'axios';
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import useStyles from '../styles';
+
+import FileBase from 'react-file-base64'
 
 // Material UI
 import { Avatar, Button, CssBaseline, TextField, Link, Grid, Typography, makeStyles, Container, NoSsr } from '@material-ui/core'; 
@@ -188,8 +191,8 @@ const Register = props =>{
     const classes = useStyles()
     const authContext = useContext(AuthContext)
     const { register, isAuthenticated } = authContext
-    const [user, setUser] = useState({name: "", email : "", password : "", title: "", program: "", interests: "", bio: "", availability: ""});
-    const { name, email, password, title, program, interests, bio, availability } = user
+    const [user, setUser] = useState({name: "", email : "", password : "", title: "", program: "", interests: "", bio: "", availability: "", isMentor: false, avatar: ""});
+    const { name, email, password, title, program, interests, bio, availability, isMentor, avatar } = user
 
     useEffect(()=>{
         if (isAuthenticated) {
@@ -203,17 +206,33 @@ const Register = props =>{
     }
 
     const resetForm = () => {
-        setUser({name : "", email : "", password : "", title: "", program: "", interests: "", bio: "", availability: ""});
+        setUser({name : "", email : "", password : "", title: "", program: "", interests: "", bio: "", availability: "", isMentor: false, avatar: ""});
     }
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault()
 
         if (name === '' || email === '' || password === '') {
           alert('Please enter all fields')
         } else {
-          console.log('Register User call:', register(user));
           console.log('User within onSubmit:', user);
+          const file = e.target.files
+          const formData = new FormData()
+          formData.append('image', file)
+      
+          try {
+            const config = {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            }
+            
+            const { data } = await axios.post('/v1/api/upload', formData, config)
+            console.log('data..from uploadfile handler ', data)
+            setUser(data)
+          } catch (error) {
+            console.log(error)
+          }
           register(user)
           resetForm()
         }
@@ -371,7 +390,17 @@ const Register = props =>{
                   value={availability}
                 />
               </Grid>
-
+              <Grid item xs={12}>
+                <div>
+                  <FileBase 
+                      type="file"
+                      multiple={false}
+                      onDone={({ base64 }) => {
+                        setUser({ ...user, avatar: base64 })
+                      }}
+                    />
+                </div>
+              </Grid>
             </Grid>
             <Button
               type="submit"
