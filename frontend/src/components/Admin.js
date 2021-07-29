@@ -81,30 +81,6 @@ const MuiTableTest = (props) => {
         sort: false,
         }
         },
-        {
-            name: "Edit",
-            options: {
-              filter: true,
-              sort: false,
-              empty: true,
-              customBodyRender: (value, tableMeta, updateValue) => {
-                return (
-                    <IconButton 
-                        onClick={(e) => {
-                            console.log('tableMeta: ', tableMeta.rowData[1]);
-                            for (let i = 0; i < users.length; i++) {
-                                if (tableMeta.rowData[1] === users[i].email) {
-                                    console.log('Users emails match: ', users[i].email);
-                                    handleEdit(users[i]._id);
-                                }
-                            }
-                        }}>
-                        <EditIcon style={{color: '#FFC300'}}/>
-                    </IconButton>
-                );
-              }
-            }
-          },
     ];
 
     const options = {
