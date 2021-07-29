@@ -6,7 +6,6 @@ import PropTypes from 'prop-types'
 
 // Material UI
 import { Button, Paper, CssBaseline, Typography, Table, TableContainer, TableBody, TableCell, TableHead, TableRow, TableSortLabel, TablePagination, FormControlLabel, Switch, IconButton } from '@material-ui/core'
-import SearchBar from 'material-ui-search-bar'
 import { Edit as EditIcon, Delete as DeleteIcon, } from '@material-ui/icons'
 import useStyles from '../styles'
 
@@ -196,8 +195,6 @@ const Admin = (props) => {
         <Fragment className={classes.root}>
             <Typography varient="h1">Users</Typography>
         <Paper className={classes.paper}>
-        <SearchBar 
-        />
           <TableContainer>
             <Table
               className={classes.table}
