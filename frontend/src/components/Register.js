@@ -8,7 +8,7 @@ import FileBase from 'react-file-base64'
 import { Avatar, Button, CssBaseline, TextField, Link, Grid, Typography, makeStyles, Container, NoSsr } from '@material-ui/core'; 
 import { AssignmentOutlined as RegisterIcon, Check as CheckIcon, Close as CloseIcon } from '@material-ui/icons';
 
-//defining program select options
+//defining program select options leaving this here for future multi select
 const interestsArray = [
   { title: 'Support', }, 
   { title: 'Customer Success', }, 
@@ -91,19 +91,6 @@ const Register = props =>{
           resetForm()
         }
     }
-
-    //native select
-    const [interest, setInterest] = React.useState([]);
-    const handleChangeMultiple = (event) => {
-      const { options } = event.target;
-      const value = [];
-      for (let i = 0, l = options.length; i < l; i += 1) {
-        if (options[i].selected) {
-          value.push(options[i].value);
-        }
-      }
-      setInterest(value);
-    };
 
     return(
         <Container component="main" maxWidth="xs">
