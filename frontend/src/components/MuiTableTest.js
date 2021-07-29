@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 
 // Material UI
 import { Button, Paper, CssBaseline, Typography, Table, TableContainer, TableBody, TableCell, TableHead, TableRow, TableSortLabel, TablePagination, FormControlLabel, Switch, IconButton } from '@material-ui/core'
-import { Edit as EditIcon, Delete as DeleteIcon, } from '@material-ui/icons'
+import { Edit as EditIcon, Delete as DeleteIcon, SignalCellularConnectedNoInternet0Bar, } from '@material-ui/icons'
 import useStyles from '../styles'
 import MUIDataTable from "mui-datatables";
 
@@ -29,7 +29,6 @@ const MuiTableTest = (props) => {
 
     const handleDelete = async (e, id) => {
         //e.stopPropagation()
-
         try {
             await deleteUser(id)
         } catch(error){
@@ -93,7 +92,16 @@ const MuiTableTest = (props) => {
                     handleDelete(e, users[i]._id);
                 }
             }
-        }
+        },
+        onRowClick: (e) => {
+            console.log('On Rows Click - Clicked', e[1]);
+            for (let i = 0; i < users.length; i++) {
+                if (e[1] === users[i].email) {
+                    console.log('Users emails match: ', users[i].email);
+                }   handleUser(users[i]._id);
+            }
+
+        },
     };
 
     return (
