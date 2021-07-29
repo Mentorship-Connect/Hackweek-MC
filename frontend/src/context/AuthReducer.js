@@ -46,9 +46,11 @@ export default (state, action) => {
         }
 
         case DELETE_SUCCESS:
+            console.log('action payload in reducer', action.payload)
+            console.log('users in delete success reducer', state.users)
         return {
             ...state,
-            users: state.users.filter(user => user._id !== action.payload)
+            ...action.payload,
         }
 
         case EDIT_FAIL:

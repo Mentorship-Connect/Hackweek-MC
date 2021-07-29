@@ -33,8 +33,8 @@ const UpdateUserPage = (props) => {
     const classes = useStyles()
     const authContext = useContext(AuthContext)
     const { register, isAuthenticated, editUser } = authContext
-    const [user, setUser] = useState({name: "", email : "", password : "", title: "", program: "", interests: "", bio: "", availability: ""});
-    const { name, email, password, title, program, interests, bio, availability } = user
+    const [user, setUser] = useState({name: "", email : "", password : "", title: "", program: "", interests: "", bio: "", availability: "", isAdmin: "", isMentor: ""});
+    const { name, email, password, title, program, interests, bio, availability, isAdmin, isMentor } = user
 
     const {id} = useParams()
 
@@ -66,7 +66,6 @@ const UpdateUserPage = (props) => {
         if (name === '' || email === '' || password === '') {
           alert('Please enter all fields')
         } else {
-          console.log('update User call:', editUser(user));
           console.log('User within onSubmit:', user);
           editUser(id, user)
           props.history.push('/')
@@ -185,6 +184,34 @@ const UpdateUserPage = (props) => {
                   multiline
                   onChange={onChange}
                   value={bio}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="availability"
+                  label="Availability"
+                  type="availability"
+                  id="availability"
+                  autoComplete="bio"
+                  onChange={onChange}
+                  value={availability}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="availability"
+                  label="Availability"
+                  type="availability"
+                  id="availability"
+                  autoComplete="bio"
+                  onChange={onChange}
+                  value={availability}
                 />
               </Grid>
               <Grid item xs={12}>
