@@ -5,8 +5,8 @@ import useStyles from '../styles';
 import FileBase from 'react-file-base64'
 
 // Material UI
-import { Avatar, Button, CssBaseline, TextField, Link, Grid, Typography, makeStyles, Container, NoSsr } from '@material-ui/core'; 
-import { AssignmentOutlined as RegisterIcon, Check as CheckIcon, Close as CloseIcon } from '@material-ui/icons';
+import { IconButton, Avatar, Button, CssBaseline, TextField, Link, Grid, Typography, makeStyles, Container, NoSsr } from '@material-ui/core'; 
+import { ArrowBack as ArrowBackIcon, AssignmentOutlined as RegisterIcon, Check as CheckIcon, Close as CloseIcon } from '@material-ui/icons';
 
 //defining program select options leaving this here for future multi select
 const interestsArray = [
@@ -105,6 +105,8 @@ const Register = props =>{
     }
 
     return(
+      <>
+        <IconButton><ArrowBackIcon /></IconButton>
         <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
@@ -284,6 +286,7 @@ const Register = props =>{
           </form>
         </div>
       </Container>
+      </>
     )
 }
 
