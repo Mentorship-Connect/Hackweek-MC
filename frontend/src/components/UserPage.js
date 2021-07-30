@@ -7,14 +7,8 @@ import PropTypes from 'prop-types'
 
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
+import { IconButton, Card, CardHeader, CardMedia, CardContent, Avatar, Typography, Grid, Container} from '@material-ui/core'
+import { ArrowBack as ArrowBackIcon} from '@material-ui/icons'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -71,6 +65,8 @@ const UserPage = () => {
     }, [id])
 
     return (
+      <>
+      <IconButton onClick={() => {window.history.back()}}><ArrowBackIcon /></IconButton>
       <Container className={classes.cardGrid} maxWidth="md">
       <Grid container spacing={2}>
           {selectedUser && (
@@ -109,6 +105,7 @@ const UserPage = () => {
           )}
           </Grid> 
       </Container>
+      </>
     )
 }
 

@@ -6,8 +6,8 @@ import useStyles from '../styles';
 import FileBase from 'react-file-base64'
 
 // Material UI
-import { Avatar, Button, CssBaseline, TextField, Link, Grid, Typography, makeStyles, Container } from '@material-ui/core'; 
-import { AssignmentOutlined as RegisterIcon } from '@material-ui/icons';
+import { Avatar, Button, CssBaseline, TextField, Link, Grid, Typography, makeStyles, Container, IconButton } from '@material-ui/core'; 
+import { ArrowBack as ArrowBackIcon, AssignmentOutlined as RegisterIcon } from '@material-ui/icons';
 
 //defining program select options
 const programs = [
@@ -86,6 +86,8 @@ const UpdateUserPage = (props) => {
     }
 
     return(
+        <>
+        <IconButton onClick={() => {window.history.back()}}><ArrowBackIcon /></IconButton>
         <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
@@ -260,6 +262,7 @@ const UpdateUserPage = (props) => {
           </form>
         </div>
       </Container>
+      </>
     )
 }
 
