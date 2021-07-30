@@ -185,7 +185,6 @@ router.put('/v1/api/users/:id', protect, admin, asyncHandler(async (req, res) =>
             linkedin: updatedUser.linkedin,
             bio: updatedUser.bio,
             availability: updatedUser.availability,
-            isAdmin: updatedUser.isAdmin
         })
     } else {
         res.status(404)

@@ -214,7 +214,6 @@ const Register = props =>{
                   <Grid item xs={12}>
                 <TextField
                   variant="outlined"
-                  required
                   fullWidth
                   name="linkedin"
                   label="LinkedIn"
