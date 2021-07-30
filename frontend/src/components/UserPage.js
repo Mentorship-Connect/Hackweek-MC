@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
-import PropTypes from 'prop-types'
+
 
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
@@ -45,12 +45,18 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1,
   },
+  bold: {
+    fontWeight: 'bold',
+    marginRight: '5px'
+  },
   }));
 
 const UserPage = () => {
     const classes = useStyles();
     const {id} = useParams()
     const [selectedUser, setSelectedUser] = useState('')
+    const linkedinURL = selectedUser.linkedin
+    console.log(linkedinURL)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -91,15 +97,11 @@ const UserPage = () => {
                 </Typography>
                 </CardContent>
                 <CardContent>
-                    <Typography paragraph>Bio: </Typography>
-                    <Typography paragraph>{selectedUser.bio}</Typography>
-                    <Typography paragraph>
-                    Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10
-                    minutes.
-                    </Typography>
-                    <Typography paragraph>{selectedUser.interests}</Typography>
-                    <Typography paragraph>{selectedUser.availability}</Typography>
-                    <Typography paragraph>{selectedUser.isMentor === false ? "Mentee" : "Mentor"}</Typography>
+                    <Typography paragraph><span className={classes.bold}>Bio: </span>{selectedUser.bio}</Typography>
+                    <Typography paragraph><span className={classes.bold}>Interest: </span>{selectedUser.interests}</Typography>
+                    <Typography paragraph><span className={classes.bold}>Availability: </span>{selectedUser.availability}</Typography>
+                    <Typography paragraph><span className={classes.bold}>Role: </span>{selectedUser.isMentor === false ? "Mentee" : "Mentor"}</Typography>
+                    <Typography paragraph><span className={classes.bold}>LinkedIn: </span><a href={selectedUser.linkedin} target="_blank" rel="noreferrer">{selectedUser.linkedin}</a></Typography>
                 </CardContent>
             </Card>
           )}
