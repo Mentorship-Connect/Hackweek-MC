@@ -1,6 +1,9 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
+import PropTypes from 'prop-types'
 
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
