@@ -46,8 +46,8 @@ const UpdateUserPage = (props) => {
     const classes = useStyles()
     const authContext = useContext(AuthContext)
     const { register, isAuthenticated, editUser } = authContext
-    const [user, setUser] = useState({name: "", email : "", password : "", role: "", program: "", interests: "", bio: "", availability: "", isAdmin: "", isMentor: ""});
-    const { name, email, password, role, program, interests, bio, availability, isAdmin, isMentor } = user
+    const [user, setUser] = useState({name: "", email : "", password : "", role: "", program: "", interests: "", linkedin: "", bio: "", availability: "", isAdmin: "", isMentor: ""});
+    const { name, email, password, role, program, interests, bio, availability, linkedin, isAdmin, isMentor } = user
 
     const {id} = useParams()
 
@@ -191,6 +191,20 @@ const UpdateUserPage = (props) => {
                   autoComplete="interests"
                   onChange={onChange}
                   value={interests}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="linkedin"
+                  label="LinkedIn"
+                  type="linkedin"
+                  id="linkedin"
+                  autoComplete="linkedin"
+                  onChange={onChange}
+                  value={linkedin}
                 />
               </Grid>
               <Grid item xs={12}>

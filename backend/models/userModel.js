@@ -34,6 +34,7 @@ const userSchema = mongoose.Schema({
     title: { type: String },
     program: { type: String },
     interests: [{ type: String }],
+    linkedin: { type: String },
     bio: { type: String }, 
     availability: { type: String },
 }, {

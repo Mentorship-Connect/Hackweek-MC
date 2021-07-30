@@ -57,8 +57,8 @@ const Register = props =>{
     const classes = useStyles()
     const authContext = useContext(AuthContext)
     const { register, isAuthenticated } = authContext
-    const [user, setUser] = useState({name: "", email : "", password : "", role: "", program: "", interests: "", bio: "", availability: "", avatar: ""});
-    const { name, email, password, role, program, interests, bio, availability, isMentor, avatar } = user
+    const [user, setUser] = useState({name: "", email : "", password : "", role: "", program: "", interests: "", linkedin: "", bio: "", availability: "", avatar: ""});
+    const { name, email, password, role, program, linkedin, interests, bio, availability, isMentor, avatar } = user
 
     useEffect(()=>{
         if (isAuthenticated) {
@@ -197,7 +197,6 @@ const Register = props =>{
                     </option>
                   ))}
                 </TextField>
-
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -212,6 +211,20 @@ const Register = props =>{
                   value={interests}
                 />
                   </Grid>
+                  <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="linkedin"
+                  label="LinkedIn"
+                  type="linkedin"
+                  id="linkedin"
+                  autoComplete="linkedin"
+                  onChange={onChange}
+                  value={linkedin}
+                />
+              </Grid>
               <Grid item xs={12}>
                 <TextField
                   variant="outlined"
