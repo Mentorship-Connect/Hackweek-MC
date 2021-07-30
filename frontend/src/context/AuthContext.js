@@ -23,7 +23,6 @@ export const AuthContextProvider = props => {
     const initialState = {
         token: localStorage.getItem('token'),
         isAuthenticated: null,
-        isAdmin: null,
         loading: true,
         users: null,
         error: null,
@@ -157,7 +156,6 @@ export const AuthContextProvider = props => {
     <AuthContext.Provider value={{
         token: state.token,
         isAuthenticated: state.isAuthenticated,
-        isAdmin: state.isAdmin,
         loading: true,
         users: null,
         error: null,
