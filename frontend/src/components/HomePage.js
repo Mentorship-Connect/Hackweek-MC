@@ -8,11 +8,13 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     transform: 'rotate(180deg)',
   },
   avatar: {
-    backgroundColor: red[500],
+    backgroundColor: 'none',
   },
   cardGrid: {
     paddingTop: theme.spacing(8),
@@ -43,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
+    cursor: 'pointer'
   },
   cardMedia: {
     paddingTop: '56.25%', // 16:9
@@ -82,12 +85,12 @@ const HomePage = (props) => {
                     <Card  key={user._id} className={classes.card} onClick={() => handleUser(user._id)}>
                         <CardHeader
                             avatar={
-                                <Avatar aria-label="recipe" className={classes.avatar}>
-                                {user.profile}
+                                <Avatar className={classes.avatar}>
+                                {user.name.charAt(0)}
                                 </Avatar>
                             }
                             title={user.name}
-                            subheader={user.title}
+                            subheader={user.role}
                             />
                         <CardMedia
                         className={classes.media}
@@ -100,13 +103,14 @@ const HomePage = (props) => {
                         </Typography>
                         </CardContent>
                         <CardContent>
-                            <Typography paragraph>Bio: </Typography>
-                            <Typography paragraph>{user.bio}</Typography>
-                            <Typography paragraph>
-                            Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10
-                            minutes.
-                            </Typography>
+                        <Typography paragraph><span className={classes.bold}>Interest: </span>{user.interests}</Typography>
+                    <Typography paragraph><span className={classes.bold}>Availability: </span>{user.availability}</Typography>
                         </CardContent>
+                        <CardActions>
+                          <Button size="small" color="primary">
+                            Learn More
+                          </Button>
+                        </CardActions>
                     </Card>
                 </Grid>
             ))}
