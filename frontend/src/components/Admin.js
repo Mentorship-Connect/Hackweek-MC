@@ -53,12 +53,12 @@ const MuiTableTest = (props) => {
         }
     },
     {
-    name: "isMentor",
-    label: "Role",
-    options: {
-    filter: true,
-    sort: true,
-    }
+        name: "role",
+        label: "Role",
+        options: {
+        filter: true,
+        sort: true,
+        }
     },
     {
     name: "email",
@@ -85,6 +85,14 @@ const MuiTableTest = (props) => {
     }
     },
     {
+        name: "availability",
+        label: "Availability",
+        options: {
+        filter: true,
+        sort: true,
+        }
+    },
+    {
         name: "Edit",
         options: {
             filter: true,
@@ -103,7 +111,7 @@ const MuiTableTest = (props) => {
                             }
                         }
                     }}>
-                    <EditIcon style={{color: '#FFC300'}}/>
+                    <EditIcon />
                 </IconButton>
             );
             }
@@ -119,6 +127,7 @@ const MuiTableTest = (props) => {
                 console.log('user in onRowsDelete: ', i, e.data[0].index);
                 if (e.data[0].index === i) {
                     console.log('Yay! We have a match!', users[i]);
+                    console.log('User ID', users[i]._id);
                     handleDelete(e, users[i]._id);
                 }
             }

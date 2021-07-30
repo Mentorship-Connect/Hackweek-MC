@@ -15,7 +15,7 @@ router.get('/v1/api/users', asyncHandler(async (req, res) => {
 // Create a user
 router.post('/v1/api/users', asyncHandler(async (req, res) => {
 
-    const { name, email, password, isMentor, title, program, interests, bio, availability, avatar} = req.body
+    const { name, email, password, isMentor, role, title, linkedin, program, interests, bio, availability, avatar} = req.body
 
     const userExist = await User.findOne({ email })
     if (userExist) {
@@ -23,17 +23,19 @@ router.post('/v1/api/users', asyncHandler(async (req, res) => {
         throw new Error('User already exist!')
     }
 
-    const user = await User.create({ name, email, password, isMentor, title, program, interests, bio, availability, avatar })
+    const user = await User.create({ name, email, password, role, isMentor, linkedin, title, program, interests, bio, availability, avatar })
     if (user) {
         res.status(201).json({
             _id: user._id,
             name: user.name,
             email: user.email,
+            role: user.role,
             isAdmin: user.isAdmin,
             isMentor: user.isMentor,
             title: user.title,
             program: user.program,
             interests: user.interests,
+            linkedin: user.linkedin,
             bio: user.bio,
             availability: user.availability,
             avatar: user.avatar,
@@ -86,6 +88,7 @@ router.get('/v1/api/users/profile', protect, asyncHandler(async (req, res) => {
             avatar: user.avatar,
             title: user.title,
             program: user.program,
+            linkedin: user.linkedin,
             interests: user.interests,
             bio: user.bio,
             availability: user.availability
@@ -117,6 +120,8 @@ router.put('/v1/api/users/profile', protect, asyncHandler(async (req, res) => {
         user.email = req.body.email || user.email
         user.avatar = req.body.avatar || user.avatar
         user.title = req.body.title || user.title
+        user.role = req.body.role || user.role
+        user.linkedin = req.body.linkedin || user.linkedin
         user.program = req.body.program || user.program
         user.interests = req.body.interests || user.interests
         user.bio = req.body.bio || user.bio
@@ -134,6 +139,8 @@ router.put('/v1/api/users/profile', protect, asyncHandler(async (req, res) => {
             isMentor: updatedUser.isMentor,
             avatar: updatedUser.avatar,
             title: updatedUser.title,
+            role: updatedUser.role,
+            linkedin: updatedUser.linkedin,
             program: updatedUser.program,
             interests: updatedUser.interests,
             bio: updatedUser.bio,
@@ -154,6 +161,8 @@ router.put('/v1/api/users/:id', protect, admin, asyncHandler(async (req, res) =>
         user.email = req.body.email || user.email
         user.avatar = req.body.avatar || user.avatar
         user.title = req.body.title || user.title
+        user.role = req.body.role || user.role
+        user.linkedin = req.body.linkedin || user.linkedin
         user.program = req.body.program || user.program
         user.interests = req.body.interests || user.interests
         user.bio = req.body.bio || user.bio
@@ -166,15 +175,16 @@ router.put('/v1/api/users/:id', protect, admin, asyncHandler(async (req, res) =>
             _id: updatedUser._id,
             name: updatedUser.name,
             email: updatedUser.email,
+            role: updatedUser.role,
             isAdmin: updatedUser.isAdmin,
             isMentor: updatedUser.isMentor,
             avatar: updatedUser.avatar,
             title: updatedUser.title,
             program: updatedUser.program,
             interests: updatedUser.interests,
+            linkedin: updatedUser.linkedin,
             bio: updatedUser.bio,
             availability: updatedUser.availability,
-            isAdmin: updatedUser.isAdmin
         })
     } else {
         res.status(404)

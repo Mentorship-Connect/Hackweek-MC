@@ -14,6 +14,11 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    role: {
+        type: String,
+        required: true,
+        default: false
     }, 
     isAdmin: {
         type: Boolean,
@@ -29,6 +34,7 @@ const userSchema = mongoose.Schema({
     title: { type: String },
     program: { type: String },
     interests: [{ type: String }],
+    linkedin: { type: String },
     bio: { type: String }, 
     availability: { type: String },
 }, {
