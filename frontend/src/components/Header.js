@@ -113,7 +113,7 @@ export default function Header() {
                 aria-haspopup="true"
                 color="inherit"
                 >
-                  <AccountCircle />
+                <AccountCircle />
               </IconButton>
                 <p>Profile</p>
         </MenuItem>
