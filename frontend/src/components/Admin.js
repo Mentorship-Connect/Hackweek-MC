@@ -9,20 +9,31 @@ import { Edit as EditIcon } from '@material-ui/icons'
 import useStyles from '../styles'
 import MUIDataTable from "mui-datatables";
 
-const MuiTableTest = (props) => {
+const Admin = (props) => {
     const classes = useStyles();
     let history = useHistory()
     const { loadUsers, deleteUser, editUser } = useContext(AuthContext)
     const [users, setUsers] = useState([])
     console.log('users', users);
-
+    const isAuth = localStorage.getItem('token')
+    const currUser = localStorage.getItem('profile') && JSON.parse(localStorage.getItem('profile'))
 
     useEffect(() => {
-        axios.get('/v1/api/users')
-        .then(res => {
-            setUsers(res.data)
-        }).catch(err => console.log(err))
-    },[loadUsers])
+        if (isAuth && currUser.isAdmin !== null && currUser.isAdmin) {
+            const fetchData = async () => {
+                try {
+                    const res = await axios.get('/v1/api/users')
+                    setUsers(res.data)
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+            fetchData()
+        } else {
+            history.push('/login')
+        }
+
+    },[history, isAuth, loadUsers])
 
     console.log('users list', users)
 
@@ -157,4 +168,4 @@ const MuiTableTest = (props) => {
 
 }
 
-export default MuiTableTest
+export default Admin
