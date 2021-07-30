@@ -26,7 +26,11 @@ const programs = [
     {
       value: 'Apprenticeship Summer 2021',
       label: 'Apprenticeship Summer 2021',
-    }
+    },
+    {
+      value: 'Admin: All Programs',
+      label: 'Admin: All Programs',
+    },
 ];
 
 //defining role select options
