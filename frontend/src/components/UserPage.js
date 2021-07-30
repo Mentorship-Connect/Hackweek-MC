@@ -102,7 +102,9 @@ const UserPage = () => {
                     {selectedUser.program}
                 </Typography>
                 </CardContent>
-                <CardContent>
+                <CardContent
+                  className={classes.cardContent}
+                >
                     <Typography paragraph><span className={classes.bold}>Bio: </span>{selectedUser.bio}</Typography>
                     <Typography paragraph><span className={classes.bold}>Interest: </span>{selectedUser.interests}</Typography>
                     <Typography paragraph><span className={classes.bold}>Availability: </span>{selectedUser.availability}</Typography>
@@ -111,7 +113,7 @@ const UserPage = () => {
                 </CardContent>
                 <CardActions>
                   {localUser._id === id && (
-                    <Button onClick={() => handleEdit(selectedUser._id)} size="large" color="default" variant="contained">
+                    <Button onClick={() => handleEdit(selectedUser._id)} size="large" color="primary" variant="contained">
                       Edit
                     </Button>
                   )}
