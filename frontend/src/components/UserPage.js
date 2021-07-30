@@ -105,7 +105,7 @@ const UserPage = () => {
                     <Typography paragraph><span className={classes.bold}>Bio: </span>{selectedUser.bio}</Typography>
                     <Typography paragraph><span className={classes.bold}>Interest: </span>{selectedUser.interests}</Typography>
                     <Typography paragraph><span className={classes.bold}>Availability: </span>{selectedUser.availability}</Typography>
-                    <Typography paragraph><span className={classes.bold}>Role: </span>{selectedUser.isMentor === false ? "Mentee" : "Mentor"}</Typography>
+                    <Typography paragraph><span className={classes.bold}>Role: </span>{selectedUser.role}</Typography>
                     <Typography paragraph><span className={classes.bold}>LinkedIn: </span><a href={selectedUser.linkedin} target="_blank" rel="noreferrer">{selectedUser.linkedin}</a></Typography>
                 </CardContent>
                 <CardActions>
