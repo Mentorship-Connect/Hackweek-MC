@@ -41,14 +41,14 @@ const roles = [
   },
 ];
 
-const UpdateUserPage = (props) => {
+const UpdateMe = (props) => {
     console.log('props..', props)
     const classes = useStyles()
     const authContext = useContext(AuthContext)
-    const { register, isAuthenticated, editUser } = authContext
+    const { register, isAuthenticated, editMe } = authContext
     const [user, setUser] = useState({name: "", email : "", password : "", role: "", program: "", interests: "", linkedin: "", bio: "", availability: "", isAdmin: "", isMentor: ""});
     const { name, email, password, role, program, interests, bio, availability, linkedin, isAdmin, isMentor } = user
-
+    const currUser = JSON.parse(localStorage.getItem('profile'))
     const {id} = useParams()
 
     useEffect(() => {
@@ -75,13 +75,11 @@ const UpdateUserPage = (props) => {
 
     const onSubmit = async (e) => {
         e.preventDefault()
-
         if (name === '' || email === '' || password === '') {
           alert('Please enter all fields')
         } else {
-          console.log('User within onSubmit:', user);
-          await editUser(id, user)
-          props.history.push('/admin')
+          await editMe(id, user)
+          props.history.push(`/users/${id}`)
         }
     }
 
@@ -233,7 +231,7 @@ const UpdateUserPage = (props) => {
                   label="Availability"
                   type="availability"
                   id="availability"
-                  autoComplete="bio"
+                  autoComplete="availability"
                   onChange={onChange}
                   value={availability}
                 />
@@ -249,6 +247,7 @@ const UpdateUserPage = (props) => {
                     />
               </Grid>
             </Grid>
+
             <Button
               type="submit"
               fullWidth
@@ -265,4 +264,4 @@ const UpdateUserPage = (props) => {
     )
 }
 
-export default UpdateUserPage
+export default UpdateMe

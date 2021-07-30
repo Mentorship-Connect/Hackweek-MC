@@ -145,6 +145,31 @@ export const AuthContextProvider = props => {
         }
     }
 
+    // Edit Me
+    const editMe = async (id, userInfo) => {
+        try {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${state.token}`,
+                    'Content-Type': 'application/json'
+                }
+            }
+    
+            const res = await axios.put(`/v1/api/users/profile`, userInfo, config)
+            dispatch({
+            type: USERS_LOADED, EDIT_SUCCESS,
+            payload: res.data
+            })
+
+            loadUsers()
+        } catch (err) {
+            dispatch({
+            type: EDIT_FAIL,
+            payload: err
+            })
+        }
+    }
+
     // Logout
     const logout = () => dispatch({ type: LOGOUT })
 
@@ -167,6 +192,7 @@ export const AuthContextProvider = props => {
         clearErrors,
         deleteUser,
         editUser,
+        editMe,
     }}>
         {props.children}
     </AuthContext.Provider>
