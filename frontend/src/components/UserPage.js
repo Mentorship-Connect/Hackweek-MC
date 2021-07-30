@@ -7,7 +7,7 @@ import { AuthContext } from '../context/AuthContext'
 
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
-import { IconButton, Card, CardHeader, CardMedia, CardContent, Avatar, Typography, Grid, Container} from '@material-ui/core'
+import { IconButton, Button, CardActions, Card, CardHeader, CardMedia, CardContent, Avatar, Typography, Grid, Container} from '@material-ui/core'
 import { ArrowBack as ArrowBackIcon} from '@material-ui/icons'
 
 
@@ -53,7 +53,9 @@ const useStyles = makeStyles((theme) => ({
 
 const UserPage = () => {
     const classes = useStyles();
+    let history = useHistory()
     const {id} = useParams()
+    const localUser = JSON.parse(localStorage.getItem('profile'))
     const [selectedUser, setSelectedUser] = useState('')
     const linkedinURL = selectedUser.linkedin
     console.log(linkedinURL)
@@ -70,6 +72,9 @@ const UserPage = () => {
         fetchData()
     }, [id])
 
+    const handleEdit = async (id) => {
+      await history.push(`/users/${id}/updateme`)
+  }
     return (
       <>
       <IconButton onClick={() => {window.history.back()}}><ArrowBackIcon /></IconButton>
@@ -103,6 +108,13 @@ const UserPage = () => {
                     <Typography paragraph><span className={classes.bold}>Role: </span>{selectedUser.isMentor === false ? "Mentee" : "Mentor"}</Typography>
                     <Typography paragraph><span className={classes.bold}>LinkedIn: </span><a href={selectedUser.linkedin} target="_blank" rel="noreferrer">{selectedUser.linkedin}</a></Typography>
                 </CardContent>
+                <CardActions>
+                  {localUser._id === id && (
+                    <Button onClick={() => handleEdit(selectedUser._id)} size="large" color="default" variant="contained">
+                      Edit
+                    </Button>
+                  )}
+                </CardActions>
             </Card>
           )}
           </Grid> 

@@ -11,6 +11,7 @@ import UserPage from './components/UserPage';
 import UpdateUserPage from './components/UpdateUserPage';
 import HomePage from './components/HomePage';
 import Admin from './components/Admin'
+import UpdateMe from './components/UpdateMe';
 
 function App() {
   const classes = useStyles();
@@ -26,6 +27,7 @@ function App() {
             <Route exact path='/register' component={Register} />
             <Route exact path ='/users/:id' component={UserPage} />
             <Route exact path ='/users/:id/update' component={UpdateUserPage} />
+            <Route exact path ='/users/:id/updateme' component={UpdateMe} />
           </Switch>
         </Container>
       </Router>
