@@ -85,7 +85,7 @@ const UserPage = () => {
                 <CardHeader
                     avatar={
                         <Avatar aria-label="recipe" className={classes.avatar}>
-                        {selectedUser.profile}
+                        {selectedUser.name.charAt(0)}
                         </Avatar>
                     }
                     title={selectedUser.name}
