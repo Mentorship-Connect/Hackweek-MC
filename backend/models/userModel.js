@@ -30,7 +30,7 @@ const userSchema = mongoose.Schema({
     program: { type: String },
     interests: [{ type: String }],
     bio: { type: String }, 
-    availability: { type: String }
+    availability: { type: String },
 }, {
     timestamp: true,
 })

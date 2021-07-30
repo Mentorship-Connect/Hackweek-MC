@@ -47,7 +47,7 @@ const Admin = (props) => {
 
     //tablesort
     const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('calories');
+    const [orderBy, setOrderBy] = React.useState('name');
     const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
@@ -147,7 +147,6 @@ const Admin = (props) => {
         };
       
         return (
-            <Fragment>
                 <TableHead>
                 <TableRow>
                     {headCells.map((headCell) => (
@@ -173,7 +172,6 @@ const Admin = (props) => {
                     ))}
                 </TableRow>
                 </TableHead>
-          </Fragment>
         );
       }
 
@@ -186,6 +184,12 @@ const Admin = (props) => {
         orderBy: PropTypes.string.isRequired,
         rowCount: PropTypes.number.isRequired,
         };
+
+    //filtering the table
+    //I could capture the input and send it to the backend and create a search route and return it
+    //I could do it in the ui and filter the users array
+
+    //capturing the search input
 
     return (
         <Fragment className={classes.root}>

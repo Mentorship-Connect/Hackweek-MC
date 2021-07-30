@@ -4,13 +4,13 @@ import useStyles from './styles';
 
 //importing components
 import Register from './components/Register';
-import Admin from './components/AdminHome';
 import { AuthContextProvider } from './context/AuthContext';
 import Login from './components/Login';
 import Header from './components/Header';
 import UserPage from './components/UserPage';
 import UpdateUserPage from './components/UpdateUserPage';
 import HomePage from './components/HomePage';
+import Admin from './components/Admin'
 
 function App() {
   const classes = useStyles();

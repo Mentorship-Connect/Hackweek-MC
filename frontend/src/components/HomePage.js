@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     height: 0,
-    paddingTop: '56.25%', // 16:9
+    paddingTop: '80%', // 16:9
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -92,7 +92,7 @@ const HomePage = (props) => {
                         <CardMedia
                         className={classes.media}
                         image={user.avatar ? user.avatar : ("https://source.unsplash.com/random")}
-                        title="Random image"
+                        title="Profile image"
                         />
                         <CardContent>
                         <Typography variant="body2" color="textSecondary" component="p">
