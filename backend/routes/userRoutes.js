@@ -15,7 +15,7 @@ router.get('/v1/api/users', asyncHandler(async (req, res) => {
 // Create a user
 router.post('/v1/api/users', asyncHandler(async (req, res) => {
 
-    const { name, email, password, isMentor, title, program, interests, bio, availability, avatar} = req.body
+    const { name, email, password, isMentor, role, title, program, interests, bio, availability, avatar} = req.body
 
     const userExist = await User.findOne({ email })
     if (userExist) {
@@ -23,12 +23,13 @@ router.post('/v1/api/users', asyncHandler(async (req, res) => {
         throw new Error('User already exist!')
     }
 
-    const user = await User.create({ name, email, password, isMentor, title, program, interests, bio, availability, avatar })
+    const user = await User.create({ name, email, password, role, isMentor, title, program, interests, bio, availability, avatar })
     if (user) {
         res.status(201).json({
             _id: user._id,
             name: user.name,
             email: user.email,
+            role: user.role,
             isAdmin: user.isAdmin,
             isMentor: user.isMentor,
             title: user.title,

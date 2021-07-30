@@ -41,12 +41,24 @@ const programs = [
   }
 ];
 
+//defining role select options
+const roles = [
+  {
+    value: 'Mentor',
+    label: 'Mentor', 
+  },
+  {
+    value: 'Mentee',
+    label: 'Mentee',
+  },
+];
+
 const Register = props =>{
     const classes = useStyles()
     const authContext = useContext(AuthContext)
     const { register, isAuthenticated } = authContext
     const [user, setUser] = useState({name: "", email : "", password : "", title: "", program: "", interests: "", bio: "", availability: "", isMentor: false, avatar: ""});
-    const { name, email, password, title, program, interests, bio, availability, isMentor, avatar } = user
+    const { name, email, password, role, title, program, interests, bio, availability, isMentor, avatar } = user
 
     useEffect(()=>{
         if (isAuthenticated) {
@@ -60,7 +72,7 @@ const Register = props =>{
     }
 
     const resetForm = () => {
-        setUser({name : "", email : "", password : "", title: "", program: "", interests: "", bio: "", availability: "", isMentor: false, avatar: ""});
+        setUser({name : "", email : "", password : "", role: "", title: "", program: "", interests: "", bio: "", availability: "", isMentor: false, avatar: ""});
     }
 
     const onSubmit = async (e) => {
@@ -142,6 +154,28 @@ const Register = props =>{
                   value={password}
                 />
               </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  select
+                  fullWidth
+                  helperText="Please select your program."
+                  name="role"
+                  label="Role"
+                  type="role"
+                  id="role"
+                  autoComplete="role"
+                  onChange={onChange}
+                  value={role}                
+                >
+                  {roles.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </TextField>
+                </Grid>
               <Grid item xs={12}>
                 <TextField
                   variant="outlined"
