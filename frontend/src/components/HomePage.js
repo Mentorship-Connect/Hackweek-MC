@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     transform: 'rotate(180deg)',
   },
   avatar: {
-    backgroundColor: 'none',
+    backgroundColor: '#f2994b',
   },
   cardGrid: {
     paddingTop: theme.spacing(8),

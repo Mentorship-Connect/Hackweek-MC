@@ -4,20 +4,18 @@ import { useParams } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 
-
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import { IconButton, Button, CardActions, Card, CardHeader, CardMedia, CardContent, Avatar, Typography, Grid, Container} from '@material-ui/core'
 import { ArrowBack as ArrowBackIcon} from '@material-ui/icons'
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
   },
   media: {
-    height: 0,
-    paddingTop: '80%', // 16:9
+    width: '50%',
+    height: '500px',
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -25,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create('transform', {
       duration: theme.transitions.duration.shortest,
     }),
+  },
+  avatar: {
+    backgroundColor: '#f2994b',
   },
   expandOpen: {
     transform: 'rotate(180deg)',
@@ -85,7 +86,7 @@ const UserPage = () => {
                 <CardHeader
                     avatar={
                         <Avatar aria-label="recipe" className={classes.avatar}>
-                        {selectedUser.profile}
+                        {selectedUser.name.charAt(0)}
                         </Avatar>
                     }
                     title={selectedUser.name}
@@ -101,16 +102,18 @@ const UserPage = () => {
                     {selectedUser.program}
                 </Typography>
                 </CardContent>
-                <CardContent>
+                <CardContent
+                  className={classes.cardContent}
+                >
                     <Typography paragraph><span className={classes.bold}>Bio: </span>{selectedUser.bio}</Typography>
                     <Typography paragraph><span className={classes.bold}>Interest: </span>{selectedUser.interests}</Typography>
                     <Typography paragraph><span className={classes.bold}>Availability: </span>{selectedUser.availability}</Typography>
-                    <Typography paragraph><span className={classes.bold}>Role: </span>{selectedUser.isMentor === false ? "Mentee" : "Mentor"}</Typography>
+                    <Typography paragraph><span className={classes.bold}>Role: </span>{selectedUser.role}</Typography>
                     <Typography paragraph><span className={classes.bold}>LinkedIn: </span><a href={selectedUser.linkedin} target="_blank" rel="noreferrer">{selectedUser.linkedin}</a></Typography>
                 </CardContent>
                 <CardActions>
                   {localUser._id === id && (
-                    <Button onClick={() => handleEdit(selectedUser._id)} size="large" color="default" variant="contained">
+                    <Button onClick={() => handleEdit(selectedUser._id)} size="large" color="primary" variant="contained">
                       Edit
                     </Button>
                   )}
