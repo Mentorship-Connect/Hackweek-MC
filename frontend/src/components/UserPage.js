@@ -4,12 +4,10 @@ import { useParams } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 
-
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import { IconButton, Button, CardActions, Card, CardHeader, CardMedia, CardContent, Avatar, Typography, Grid, Container} from '@material-ui/core'
 import { ArrowBack as ArrowBackIcon} from '@material-ui/icons'
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create('transform', {
       duration: theme.transitions.duration.shortest,
     }),
+  },
+  avatar: {
+    backgroundColor: '#f2994b',
   },
   expandOpen: {
     transform: 'rotate(180deg)',
