@@ -87,7 +87,7 @@ const UpdateUserPage = (props) => {
 
     return(
         <>
-        <IconButton><ArrowBackIcon /></IconButton>
+        <IconButton onClick={() => {window.history.back()}}><ArrowBackIcon /></IconButton>
         <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>

@@ -66,7 +66,7 @@ const UserPage = () => {
 
     return (
       <>
-      <IconButton><ArrowBackIcon /></IconButton>
+      <IconButton onClick={() => {window.history.back()}}><ArrowBackIcon /></IconButton>
       <Container className={classes.cardGrid} maxWidth="md">
       <Grid container spacing={2}>
           {selectedUser && (
