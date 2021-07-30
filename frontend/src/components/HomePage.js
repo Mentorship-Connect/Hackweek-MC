@@ -53,6 +53,10 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1,
   },
+  bold: {
+    fontWeight: '500',
+    marginRight: '3px'
+  },
 }));
 
 const HomePage = (props) => {
@@ -103,8 +107,8 @@ const HomePage = (props) => {
                         </Typography>
                         </CardContent>
                         <CardContent>
-                        <Typography paragraph><span className={classes.bold}>Interest: </span>{user.interests}</Typography>
-                    <Typography paragraph><span className={classes.bold}>Availability: </span>{user.availability}</Typography>
+                        <Typography paragraph variant="body3"><span className={classes.bold}>Interest: </span>{user.interests}</Typography>
+                        <Typography paragraph variant="body3"><span className={classes.bold}>Availability: </span>{user.availability}</Typography>
                         </CardContent>
                         <CardActions>
                           <Button size="small" color="primary">

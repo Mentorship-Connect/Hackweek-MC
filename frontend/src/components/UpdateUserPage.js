@@ -239,7 +239,7 @@ const UpdateUserPage = (props) => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <div>
+              <span style={{ fontSize: '20px', fontWeight: '800'}}>Select profile picture: </span>
                   <FileBase 
                       type="file"
                       multiple={false}
@@ -247,7 +247,6 @@ const UpdateUserPage = (props) => {
                         setUser({ ...user, avatar: base64 })
                       }}
                     />
-                </div>
               </Grid>
             </Grid>
             <Button

@@ -256,15 +256,13 @@ const Register = props =>{
                 />
               </Grid>
               <Grid item xs={12}>
-                <div>
-                  <FileBase 
-                      type="file"
-                      multiple={false}
-                      onDone={({ base64 }) => {
-                        setUser({ ...user, avatar: base64 })
-                      }}
-                    />
-                </div>
+                <span style={{ fontSize: '20px', fontWeight: '800'}}>Select profile picture: </span>
+                <FileBase 
+                  multiple={false}
+                  onDone={({ base64 }) => {
+                    setUser({ ...user, avatar: base64 })
+                  }}
+                />
               </Grid>
             </Grid>
             <Button
