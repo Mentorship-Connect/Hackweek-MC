@@ -8,6 +8,7 @@ import decode from 'jwt-decode'
 import useStyles from '../styles';
 import { Tooltip, AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu, Button } from '@material-ui/core';
 import { MeetingRoom as LoginIcon, Assignment as RegisterIcon, SettingsInputComponent as ConnectIcon, AccountCircle, MoreVert as MoreIcon, ExitToApp as ExitToAppIcon } from '@material-ui/icons'
+import MenuBookIcon from '@material-ui/icons/MenuBook';
 
 export default function Header() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
@@ -142,38 +143,57 @@ export default function Header() {
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-          <Tooltip title="Register">
+          
+          {!user && (
+            <Tooltip title="Register">
               <IconButton color="inherit">
-              <Link to={"/register"} style={{textDecoration: 'none', color: 'white'}}><RegisterIcon /></Link>
+                <Link to={"/register"} style={{textDecoration: 'none', color: 'white'}}><RegisterIcon /></Link>
               </IconButton> 
             </Tooltip>
-          
-          <Tooltip title="Login">
+          )}
+
+          {!user && (
+            <Tooltip title="Login">
               <IconButton color="inherit">
-              <Link to={"/login"} style={{textDecoration: 'none', color: 'white'}}><LoginIcon /></Link>
+                <Link to={"/login"} style={{textDecoration: 'none', color: 'white'}}><LoginIcon /></Link>
               </IconButton>
             </Tooltip>
-
+          )}
+  
+          {user && (
             <Tooltip title="Profile">
               <IconButton color="inherit">
-                <AccountCircle />
+                <Link to={`/users/${user._id}`} style={{textDecoration: 'none', color: 'white'}}><AccountCircle /></Link>
               </IconButton>
             </Tooltip>
-            {user && (
-              <Tooltip title="Sign Out">
-              <IconButton
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleLogoutAndMenuClose}
-                color="inherit"
-              >
-                <ExitToAppIcon />
-              </IconButton>
-              </Tooltip>
-            )}
+          )}
+
+
+          {user?.isAdmin && (
+            <Tooltip title="Admin Page">
+                <Link to={"/admin"} style={{textDecoration: 'none', color: 'white', padding: '12px 7px 0px'}}>
+                  <MenuBookIcon color="inherit"/>
+                </Link>
+            </Tooltip>
+          )}
+
+          {user && (
+            <Tooltip title="Sign Out">
+            <IconButton
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleLogoutAndMenuClose}
+              color="inherit"
+            >
+              <ExitToAppIcon style={{textDecoration: 'none', color: 'white', padding: '0px 0px 4px', fontSize: '30px'}} />
+            </IconButton>
+            </Tooltip>
+          )}
+
           </div>
+
           <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"
