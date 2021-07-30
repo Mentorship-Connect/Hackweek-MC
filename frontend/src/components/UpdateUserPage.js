@@ -29,13 +29,25 @@ const programs = [
     }
 ];
 
+//defining role select options
+const roles = [
+  {
+    value: 'Mentor',
+    label: 'Mentor', 
+  },
+  {
+    value: 'Mentee',
+    label: 'Mentee',
+  },
+];
+
 const UpdateUserPage = (props) => {
     console.log('props..', props)
     const classes = useStyles()
     const authContext = useContext(AuthContext)
     const { register, isAuthenticated, editUser } = authContext
-    const [user, setUser] = useState({name: "", email : "", password : "", title: "", program: "", interests: "", bio: "", availability: "", isAdmin: "", isMentor: ""});
-    const { name, email, password, title, program, interests, bio, availability, isAdmin, isMentor } = user
+    const [user, setUser] = useState({name: "", email : "", password : "", role: "", program: "", interests: "", bio: "", availability: "", isAdmin: "", isMentor: ""});
+    const { name, email, password, role, program, interests, bio, availability, isAdmin, isMentor } = user
 
     const {id} = useParams()
 
@@ -58,7 +70,7 @@ const UpdateUserPage = (props) => {
     }
 
     const resetForm = () => {
-        setUser({name : "", email : "", password : "", title: "", program: "", interests: "", bio: "", availability: ""});
+        setUser({name : "", email : "", password : "", role: "", program: "", interests: "", bio: "", availability: ""});
     }
 
     const onSubmit = (e) => {
@@ -126,16 +138,25 @@ const UpdateUserPage = (props) => {
               <Grid item xs={12}>
                 <TextField
                   variant="outlined"
+                  required
+                  select
                   fullWidth
-                  name="title"
-                  label="Title"
-                  type="title"
-                  id="title"
-                  autoComplete="title"
+                  helperText="Please select your program."
+                  name="role"
+                  label="Role"
+                  type="role"
+                  id="role"
+                  autoComplete="role"
                   onChange={onChange}
-                  value={title}
-                />
-              </Grid>
+                  value={role}                
+                >
+                  {roles.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </TextField>
+                </Grid>
               <Grid item xs={12}>
                 <TextField
                   variant="outlined"

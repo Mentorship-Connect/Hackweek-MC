@@ -57,8 +57,8 @@ const Register = props =>{
     const classes = useStyles()
     const authContext = useContext(AuthContext)
     const { register, isAuthenticated } = authContext
-    const [user, setUser] = useState({name: "", email : "", password : "", title: "", program: "", interests: "", bio: "", availability: "", isMentor: false, avatar: ""});
-    const { name, email, password, role, title, program, interests, bio, availability, isMentor, avatar } = user
+    const [user, setUser] = useState({name: "", email : "", password : "", role: "", program: "", interests: "", bio: "", availability: "", avatar: ""});
+    const { name, email, password, role, program, interests, bio, availability, isMentor, avatar } = user
 
     useEffect(()=>{
         if (isAuthenticated) {
@@ -72,7 +72,7 @@ const Register = props =>{
     }
 
     const resetForm = () => {
-        setUser({name : "", email : "", password : "", role: "", title: "", program: "", interests: "", bio: "", availability: "", isMentor: false, avatar: ""});
+        setUser({name : "", email : "", password : "", role: "", program: "", interests: "", bio: "", availability: "", isMentor: false, avatar: ""});
     }
 
     const onSubmit = async (e) => {

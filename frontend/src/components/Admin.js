@@ -127,6 +127,7 @@ const MuiTableTest = (props) => {
                 console.log('user in onRowsDelete: ', i, e.data[0].index);
                 if (e.data[0].index === i) {
                     console.log('Yay! We have a match!', users[i]);
+                    console.log('User ID', users[i]._id);
                     handleDelete(e, users[i]._id);
                 }
             }
