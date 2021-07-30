@@ -7,7 +7,7 @@ import decode from 'jwt-decode'
 
 import useStyles from '../styles';
 import { Tooltip, AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu, Button } from '@material-ui/core';
-import { MeetingRoom as LoginIcon, Assignment as RegisterIcon, SettingsInputComponent as ConnectIcon, AccountCircle, MoreVert as MoreIcon, ExitToApp as ExitToAppIcon } from '@material-ui/icons'
+import { Extension as PuzzleIcon, MeetingRoom as LoginIcon, Assignment as RegisterIcon, SettingsInputComponent as ConnectIcon, AccountCircle, MoreVert as MoreIcon, ExitToApp as ExitToAppIcon } from '@material-ui/icons'
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 
 export default function Header() {
@@ -136,7 +136,7 @@ export default function Header() {
             color="inherit"
             aria-label="open drawer"
           >
-            <Link to={"/"} style={{textDecoration: 'none', color: 'white'}}><ConnectIcon /></Link>
+            <Link to={"/"} style={{textDecoration: 'none', color: 'white'}}><PuzzleIcon fontSize="large" /></Link>
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
             Mentorship Connect
