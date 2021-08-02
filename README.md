@@ -1,4 +1,4 @@
-# Hackweek Mentorship Connect Project
+# Mentorship Connect Project
 Created by [Lee Tann](https://github.com/LeeTann) & [Megan Katherine O'Brien](https://github.com/mk0b) (The Hidden Gems), during Hackweek July 2021 at OpenSesame.
 
 ## What is Mentorship Connect?
@@ -7,10 +7,10 @@ Mentorship connect is a platform to manage and help scale the OpenSesame interns
 
 ## Technology
 
-Built with JavaScript and ❤️.
+Built with [JavaScript](https://www.javascript.com/) and ❤️.
 
-* React.js
-* Material UI
-* Node.js
-* Express
-* Mongo DB
+* [React](https://reactjs.org/)
+* [Material UI](https://material-ui.com/)
+* [Node](https://nodejs.org/en/)
+* [Express](https://expressjs.com/)
+* [Mongo DB](https://www.mongodb.com/)
